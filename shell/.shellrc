@@ -1,0 +1,34 @@
+# fasd aliases
+# ------------
+eval "$(fasd --init auto)"
+alias j="fasd_cd -d"
+alias kitty="LIBGL_ALWAYS_SOFTWARE=true GALLIUM_DRIVER=llvmpipe kitty"
+
+# ALiases
+# ------------
+alias ll='lsd -lh --group-dirs=first'
+alias la='lsd -a --group-dirs=first'
+alias l='lsd --group-dirs=first'
+alias lla='lsd -lha --group-dirs=first'
+alias ls='lsd --group-dirs=first'
+
+alias dev='cd ~/Documentos/DEV'
+alias hosts='sudo nano /etc/hosts'
+
+alias lerr='lando logs --s appserver -f | grep "\[php7:"'
+
+alias almacen='sshfs dariobf@192.168.1.250:/media/almacen /media/Almacen'
+alias bfserver='ssh dariobf@192.168.1.250'
+
+alias ovim="/usr/bin/vim"
+alias vi="lvim"
+alias vim="lvim"
+
+alias ga="git add"
+alias gc="git commit"
+alias gco="git checkout"
+alias gd="git difftool --no-symlinks --dir-diff"
+alias gg="git pull"
+alias gp="git push"
+alias gs="git status"
+alias gt="git tag"
