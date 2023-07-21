@@ -4,6 +4,12 @@ eval "$(fasd --init auto)"
 alias j="fasd_cd -d"
 alias kitty="LIBGL_ALWAYS_SOFTWARE=true GALLIUM_DRIVER=llvmpipe kitty"
 
+# Exports
+# ------------
+#export PATH=$(composer global config bin-dir --absolute)
+#export PATH="$PATH:$(composer global config bin-dir --absolute)"
+export PATH="$PATH:/home/dariobf/.config/composer/vendor/bin"
+
 # ALiases
 # ------------
 alias ll='lsd -lh --group-dirs=first'
