@@ -83,7 +83,6 @@ source $ZSH/oh-my-zsh.sh
 
 # Plugins
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # User configuration
 
@@ -121,3 +120,4 @@ PATH="$HOME/.local/bin:$PATH"
 
 # Load customizations
 source ~/.shellrc
+source ~/powerlevel10k/powerlevel10k.zsh-theme

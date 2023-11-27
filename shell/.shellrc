@@ -9,6 +9,7 @@ alias kitty="LIBGL_ALWAYS_SOFTWARE=true GALLIUM_DRIVER=llvmpipe kitty"
 #export PATH=$(composer global config bin-dir --absolute)
 #export PATH="$PATH:$(composer global config bin-dir --absolute)"
 export PATH="$PATH:/home/dariobf/.config/composer/vendor/bin"
+export PATH="./node_modules/.bin:$PATH"
 
 # ALiases
 # ------------
