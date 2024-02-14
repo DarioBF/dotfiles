@@ -121,3 +121,5 @@ PATH="$HOME/.local/bin:$PATH"
 # Load customizations
 source ~/.shellrc
 source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=off

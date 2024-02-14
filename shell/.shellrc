@@ -19,7 +19,7 @@ alias l='lsd --group-dirs=first'
 alias lla='lsd -lha --group-dirs=first'
 alias ls='lsd --group-dirs=first'
 
-alias dev='cd ~/Documentos/DEV'
+alias dev='cd ~/DEV'
 alias hosts='sudo nano /etc/hosts'
 
 alias lerr='lando logs --s appserver -f | grep "\[php7:"'
