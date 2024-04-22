@@ -66,10 +66,11 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec --no-startup-id rofi -show drun -show-icons
 
 # Gaps
+smart_gaps on
 gaps inner 10px
 
 # Wallpaper
-exec --no-startup-id feh --bg-scale ~/Imágenes/FrameworkMoon.jpg
+exec --no-startup-id feh --bg-scale ~/Imágenes/purple_landscape.jpg
 
 # There also is i3-dmenu-desktop which only displays applications shipping a
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
@@ -257,3 +258,6 @@ client.unfocused         $overlay0 $base $text  $rosewater $overlay0
 client.urgent            $peach    $base $peach $overlay0  $peach
 client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
 client.background        $base
+
+for_window [class=".*"] border pixel 3, title_format " "
+font pango:monospace 0
