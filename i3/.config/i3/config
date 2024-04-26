@@ -31,6 +31,9 @@ exec --no-startup-id dex --autostart --environment i3
 # screen before suspend. Use loginctl lock-session to lock your screen.
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
+# launch picom
+exec_always --no-startup-id picom --experimental-backends
+
 # launch polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
@@ -67,6 +70,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec --no-startup-id rofi -show drun -show-icons
 
 # Launch greenclip with rofi
+exec_always --no-startup-id greenclip daemon
 bindsym $mod+Shift+v exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 
 # Gaps

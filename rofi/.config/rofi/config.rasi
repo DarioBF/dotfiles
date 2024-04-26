@@ -1,0 +1,6 @@
+//@theme "/usr/share/rofi/themes/Arc-Dark.rasi"
+//@theme "/home/dariobf/.local/share/rofi/themes/nord-twoLines.rasi"
+//@theme "/home/dariobf/.local/share/rofi/themes/simple-tokyonight.rasi"
+//@theme "/home/dariobf/.dariobf/i3/.config/polybar/rofi/colors.rasi"
+//@theme "/home/dariobf/.local/share/rofi/themes/rounded-nord-dark.rasi"
+@theme "/home/dariobf/.local/share/rofi/themes/catppuccin-mocha.rasi"
