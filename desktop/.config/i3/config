@@ -1,0 +1,39 @@
+# Modifier
+set $mod Mod1
+floating_modifier $mod
+
+# Reload and restart i3
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+
+# Workspaces
+set $ws1 "1. Chats"
+set $ws2 "2. General"
+set $ws3 "3. DEV"
+set $ws4 "4. Design"
+set $ws5 "5. Others"
+set $ws6 "6. OMT"
+
+### Esentials ###
+# Displays
+exec --no-startup-id /bin/bash /scripts/displays.sh
+
+# Compositor
+exec_always --no-startup-id picom --experimental-backends
+
+# Screen Lock
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+
+# Network Manager
+exec --no-startup-id nm-applet
+
+# Greenclip with rofi
+# exec_always --no-startup-id greenclip daemon
+
+# Picture in picture sticky
+for_window [title="Picture-in-Picture"] sticky enable
+
+# Includes
+include theme.conf
+include bindings.conf
+

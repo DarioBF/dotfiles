@@ -117,6 +117,7 @@ source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 eval $(thefuck --alias)
 
 PATH="$HOME/.local/bin:$PATH"
+PATH="$HOME/.cargo/bin:$PATH"
 
 # Load customizations
 source ~/.shellrc
