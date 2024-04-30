@@ -15,14 +15,18 @@ set $ws5 "5. Others"
 set $ws6 "6. OMT"
 
 ### Esentials ###
+# Screen Lock
+exec --no-startup-id xss-lock --ignore-sleep --ignore-xss
+
+# DPMS (Display Power Management Signaling)
+exec_always --no-startup-id "xset dpms 0 0 0"
+exec_always --no-startup-id "xset s off -dpms"
+
 # Displays
 exec --no-startup-id /bin/bash /scripts/displays.sh
 
 # Compositor
 exec_always --no-startup-id picom --experimental-backends
-
-# Screen Lock
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # Network Manager
 exec --no-startup-id nm-applet
@@ -36,4 +40,5 @@ for_window [title="Picture-in-Picture"] sticky enable
 # Includes
 include theme.conf
 include bindings.conf
+include floating.conf
 
