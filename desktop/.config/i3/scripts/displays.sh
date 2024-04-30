@@ -1,4 +1,8 @@
 #!/bin/bash
+# Need to create a udev rule in /etc/udev/rules.d/99-monitor-hotplug.rules
+# which contains this line:
+# KERNEL=="card0", SUBSYSTEM=="drm", ACTION=="change", ENV{DISPLAY}=":0", RUN+="/home/dariobf/.config/i3/scripts/displays.sh"
+
 exec > /tmp/udev_script.log 2>&1
 export DISPLAY=:0
 export XAUTHORITY=/home/dariobf/.Xauthority
