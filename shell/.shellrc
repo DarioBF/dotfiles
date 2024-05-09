@@ -22,7 +22,9 @@ alias ls='lsd --group-dirs=first'
 alias dev='cd ~/DEV'
 alias hosts='sudo nano /etc/hosts'
 
-alias lerr='lando logs --s appserver -f | grep "\[php7:"'
+alias lerr='lando logs --s appserver -f'
+alias lerr7='lando logs --s appserver -f | grep "\[php7:"'
+alias lerr8='lando logs --s appserver -f | grep "\[php8:"'
 
 alias almacen='sshfs dariobf@192.168.1.250:/media/almacen /media/Almacen'
 alias bfserver='ssh dariobf@192.168.1.250'

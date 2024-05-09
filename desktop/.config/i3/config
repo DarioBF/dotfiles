@@ -15,6 +15,9 @@ set $ws5 "5. Others"
 set $ws6 "6. OMT"
 
 ### Esentials ###
+# Udiskie to automount external drives
+exec --no-startup-id pgrep -x udiskie || udiskie --no-automount --no-notify --tray &
+
 # Screen Lock
 # exec --no-startup-id xss-lock --ignore-sleep --ignore-xss
 
@@ -36,6 +39,9 @@ exec --no-startup-id nm-applet
 
 # Picture in picture sticky
 for_window [title="Picture-in-Picture"] sticky enable
+
+# Plex sticky
+for_window [title="Plex"] sticky enable
 
 # Includes
 include theme.conf
