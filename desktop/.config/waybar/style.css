@@ -1,12 +1,11 @@
 /* @import "oxocarbon.css"; */
 /* @import "mocha.css"; */
-@import "gruvbox.css";
+@import "mocha.css";
 
 * {
-    font-family: "Iosevka Nerd Font";
-    font-size: 16px;
+    font-family: "JetBrainsMono";
+    font-size: 14px;
     min-height: 0;
-    font-weight: bold;
 }
 
 window#waybar {
@@ -40,8 +39,8 @@ button:hover {
 
 #workspaces button.focused {
     background-color: rgba(0, 0, 0, 0.3);
-    color: @blue;
-    border-top: 2px solid @blue;
+    color: @peach;
+    border-top: 2px solid @peach;
 }
 
 #workspaces button.urgent {
@@ -66,23 +65,19 @@ button:hover {
 }
 
 #clock {
-    color: @maroon;
-    border-bottom: 2px solid @maroon;
+    color: @peach;
 }
 
 #clock.date {
-    color: @mauve;
-    border-bottom: 2px solid @mauve;
+    color: @peach;
 }
 
 #pulseaudio {
-    color: @blue;
-    border-bottom: 2px solid @blue;
+    color: @peach;
 }
 
 #network {
-    color: @yellow;
-    border-bottom: 2px solid @yellow;
+    color: @peach;
 }
 
 #idle_inhibitor {
@@ -91,13 +86,13 @@ button:hover {
 }
 
 #idle_inhibitor.activated {
-    color: @red;
+    color: @peach;
 }
 
+#battery,
 #battery.charging,
 #battery.plugged {
-    color: @green;
-    border-bottom: 2px solid @green;
+    color: @peach;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -111,7 +106,7 @@ button:hover {
 }
 
 #custom-vpn {
-    color: @lavender;
+    color: @peach;
     border-radius: 15px;
     padding-left: 6px;
     padding-right: 6px;
