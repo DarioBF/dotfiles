@@ -1,0 +1,123 @@
+### Variable
+#
+# Logo key. Use Mod1 for Alt.
+set $mod Mod1
+floating_modifier $mod normal
+
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+set $term kitty
+# Your preferred application launcher
+# Note: pass the final command to swaymsg so that the resulting window can be opened
+# on the original workspace that the command was run on.
+set $menu dmenu_path | wmenu | xargs swaymsg exec --
+
+include /etc/sway/config-vars.d/*
+
+# Runs waybar
+bar {
+    swaybar_command waybar
+}
+
+### Input configuration
+input "type:keyboard" {
+	xkb_layout us
+	xkb_variant altgr-intl
+	xkb_options "compose:menu"
+	xkb_options "level3:ralt_switch"
+}
+
+# Enable touchpad tap
+input "2362:628:PIXA3854:00_093A:0274_Touchpad" {
+    dwt enabled
+    tap enabled
+    middle_emulation enabled
+}
+
+
+### Output configuration
+
+# Wallpaper
+output * bg /home/dariobf/.config/sway/wallpapers/purple_landscape.jpg fill
+
+# Laptop display scaling
+output eDP-1 scale 1.5
+output DP-4 pos 0 0 res 2560x1440
+output DP-5 pos 2560 0 res 2560x1440
+
+# Manage clamshell mode
+set $laptop eDP-1
+bindswitch --reload --locked lid:on output $laptop disable
+bindswitch --reload --locked lid:off output $laptop enable
+exec_always /home/dariobf/.config/sway/scripts/clamshell.sh
+
+#
+# Workspaces:
+#
+		set $ws1 "1. Chats"
+		set $ws2 "2. General"
+		set $ws3 "3. DEV"
+		set $ws4 "4. Design"
+		set $ws5 "5. Others"
+		set $ws6 "6. OMT"
+
+#
+# Layout stuff:
+#
+
+    # Change container layout (stacked, tabbed, toggle split)
+    # bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+t layout toggle split
+
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+Shift+space floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+space focus mode_toggle
+
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+#
+# Scratchpad:
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+minus scratchpad show
+
+# Picture in picture floating and sticky
+for_window [app_id="firefox" title="^Picture-in-Picture$"] border none, floating enable, sticky enable
+
+#
+# Status Bar:
+#
+# Read `man 5 sway-bar` for more information about this section.
+# bar {
+#     position top
+
+#     # When the status_command prints a new line to stdout, swaybar updates.
+#     # The default just shows the current date and time.
+#     status_command while date +'%Y-%m-%d %X'; do sleep 1; done
+
+#     colors {
+#         statusline #ffffff
+#         background #323232
+#         inactive_workspace #32323200 #32323200 #5c5c5c
+#     }
+# }
+
+include /config.d/*
+# include bindings.conf
+include /home/dariobf/.config/sway/config.d/*
