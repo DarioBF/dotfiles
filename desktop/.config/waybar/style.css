@@ -17,9 +17,9 @@ window#waybar {
 }
 
 #window {
-    margin: 2;
-    padding-left: 8;
-    padding-right: 8;
+    margin: 2px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 button {
@@ -58,6 +58,7 @@ button:hover {
 #wireplumber,
 #tray,
 #mode,
+#temperature,
 #scratchpad {
     margin: 2px;
     padding-left: 4px;
@@ -89,6 +90,7 @@ button:hover {
     color: @peach;
 }
 
+#temperature,
 #battery,
 #battery.charging,
 #battery.plugged {

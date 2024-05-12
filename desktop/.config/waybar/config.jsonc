@@ -9,6 +9,7 @@
 		"sway/window"
 	],
 	"modules-right": [
+		"temperature",
 		"pulseaudio",
 		"network",
 		"battery",
@@ -32,12 +33,61 @@
 		"on-click": "ags -t datemenu",
 		"tooltip": false
 	},
+	"sway/workspaces": {
+		"format": "{icon}",
+		"on-click": "activate",
+		"format-icons": {
+			"1": "󰭹",
+			"2": "",
+			"3": "",
+			"4": "󰏘",
+			"5": "󱣛",
+			"6": "󱣛",
+			"urgent": "",
+			"active": "",
+			"default": ""
+		},
+		"persistent-workspaces": {
+			"1": [
+				"DP-4",
+				"eDP-1"
+			],
+			"2": [
+				"DP-5",
+				"eDP-1"
+			],
+			"3": [
+				"DP-5",
+				"eDP-1"
+			],
+			"4": [
+				"DP-5",
+				"eDP-1"
+			],
+			"5": [
+				"DP-5",
+				"eDP-1"
+			],
+			"6": [
+				"DP-4",
+				"eDP-1"
+			]
+		},
+		"sort-by-number": true
+	},
 	"idle_inhibitor": {
 		"format": "{icon}",
 		"format-icons": {
 			"activated": "",
 			"deactivated": ""
 		}
+	},
+	"temperature": {
+		// "thermal-zone": 2,
+		"hwmon-path": "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon7/temp1_input",
+		"critical-threshold": 90,
+		// "format-critical": "{temperatureC}°C ",
+		"format": " {temperatureC}°C"
 	},
 	"tray": {
 		"spacing": 10
