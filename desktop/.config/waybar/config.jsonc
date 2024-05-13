@@ -84,7 +84,7 @@
 	},
 	"temperature": {
 		// "thermal-zone": 2,
-		"hwmon-path": "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon7/temp1_input",
+		"hwmon-path": "/home/dariobf/.local/devices/cpu/temp1_input",
 		"critical-threshold": 90,
 		// "format-critical": "{temperatureC}°C ",
 		"format": " {temperatureC}°C"
