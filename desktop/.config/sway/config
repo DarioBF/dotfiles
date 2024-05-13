@@ -15,7 +15,7 @@ include /etc/sway/config-vars.d/*
 include /etc/sway/config.d/*
 
 # Detect CPU tCTL sensor location
-exec /home/dariobf/.dariobf/desktop/waybar/scripts/cpu_temp.sh
+exec_always /home/dariobf/.dariobf/desktop/waybar/scripts/cpu_temp.sh
 
 # Runs waybar
 bar {
