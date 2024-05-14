@@ -15,7 +15,7 @@ include /etc/sway/config-vars.d/*
 include /etc/sway/config.d/*
 
 # Detect CPU tCTL sensor location
-exec_always /home/dariobf/.dariobf/desktop/waybar/scripts/cpu_temp.sh
+exec_always --no-startup-id /home/dariobf/.config/waybar/scripts/cpu_temp.sh
 
 # Runs waybar
 bar {
@@ -47,11 +47,10 @@ output eDP-1 scale 1.5
 output DP-4 pos 0 0 res 2560x1440
 output DP-5 pos 2560 0 res 2560x1440
 
-# Manage clamshell mode
+# Manage lid events
 set $laptop eDP-1
-bindswitch --reload --locked lid:on output $laptop disable
-bindswitch --reload --locked lid:off output $laptop enable
-exec_always /home/dariobf/.config/sway/scripts/clamshell.sh
+bindswitch --reload --locked lid:on exec /home/dariobf/.config/sway/scripts/clamshell.sh on
+bindswitch --reload --locked lid:off exec /home/dariobf/.config/sway/scripts/clamshell.sh off
 
 ### Workspaces:
 set $ws1 "1"
