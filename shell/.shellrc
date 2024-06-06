@@ -43,4 +43,6 @@ alias gp="git push"
 alias gs="git status"
 alias gt="git tag"
 
-alias displays="~/.config/i3/scripts/displays.sh"
+#alias displays="~/.config/i3/scripts/displays.sh"
+
+alias filezilla="/home/dariobf/FileZilla3/bin/filezilla"
