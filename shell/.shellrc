@@ -11,6 +11,13 @@ alias kitty="LIBGL_ALWAYS_SOFTWARE=true GALLIUM_DRIVER=llvmpipe kitty"
 export PATH="$PATH:/home/dariobf/.config/composer/vendor/bin"
 export PATH="./node_modules/.bin:$PATH"
 
+# NVM
+# ---
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use
+# nvm use 16 is too slow. Use this instead (with --no-use):
+PATH="${NVM_DIR}/versions/node/v20.12.2/bin:${PATH}"
+
 # ALiases
 # ------------
 alias ll='lsd -lh --group-dirs=first'
@@ -46,3 +53,5 @@ alias gt="git tag"
 #alias displays="~/.config/i3/scripts/displays.sh"
 
 alias filezilla="/home/dariobf/FileZilla3/bin/filezilla"
+
+alias cleardev="find . -mindepth 1 ! -name '.lando.yml' -exec rm -rf {} +"

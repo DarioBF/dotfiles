@@ -43,6 +43,7 @@ input "2362:628:PIXA3854:00_093A:0274_Touchpad" {
 output * bg /home/dariobf/.config/sway/wallpapers/purple_landscape.jpg fill
 
 # Laptop display scaling
+# If needed to reconfigure, use 'swaymsg -t get_outputs'
 output eDP-1 scale 1.5
 output DP-4 pos 0 0 res 2560x1440
 output DP-5 pos 2560 0 res 2560x1440
