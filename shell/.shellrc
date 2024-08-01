@@ -54,4 +54,4 @@ alias gt="git tag"
 
 alias filezilla="/home/dariobf/FileZilla3/bin/filezilla"
 
-alias cleardev="find . -mindepth 1 ! -name '.lando.yml' -exec rm -rf {} +"
+alias cleardev="ls | xargs rm -rf"
