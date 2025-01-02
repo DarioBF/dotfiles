@@ -1,3 +1,11 @@
+#### DEPENDENCIES
+#
+# wofi          - Launcher
+# swaync        - Notifications (https://github.com/ErikReider/SwayNotificationCenter)
+# brightnessctl - Screen brightness control
+# grim + slurp  - For Screenshots
+# cliphist      - Clipboard manager (https://github.com/sentriz/cliphist)
+
 ### Variable
 #
 # Logo key. Use Mod1 for Alt.
@@ -14,8 +22,15 @@ set $term kitty
 include /etc/sway/config-vars.d/*
 include /etc/sway/config.d/*
 
+# Set Firefox as default browser
+set $BROWSER firefox
+exec_always --no-startup-id xdg-settings set default-web-browser firefox.desktop
+
 # Detect CPU tCTL sensor location
-exec_always --no-startup-id /home/dariobf/.config/waybar/scripts/cpu_temp.sh
+exec --no-startup-id "pgrep -f cpu_temp.sh || /home/dariobf/.config/waybar/scripts/cpu_temp.sh"
+
+# Clipboard manager listener
+exec --no-startup-id "pgrep -x wl-paste || wl-paste --watch cliphist store"
 
 # Runs waybar
 bar {
@@ -47,6 +62,7 @@ output * bg /home/dariobf/.config/sway/wallpapers/purple_landscape.jpg fill
 output eDP-1 scale 1.5
 output DP-4 pos 0 0 res 2560x1440
 output DP-5 pos 2560 0 res 2560x1440
+output DP-6 pos 3300 1440 res 960x640
 
 # Manage lid events
 set $laptop eDP-1
@@ -80,32 +96,16 @@ bindsym $mod+space focus mode_toggle
 # Move focus to the parent container
 bindsym $mod+a focus parent
 
-### Scratchpad:
-
-# Sway has a "scratchpad", which is a bag of holding for windows.
-# You can send windows there and get them back later.
-
-# Move the currently focused window to the scratchpad
-bindsym $mod+Shift+minus move scratchpad
-
-# Show the next scratchpad window or hide the focused scratchpad window.
-# If there are multiple scratchpad windows, this command cycles through them.
-bindsym $mod+minus scratchpad show
-
 ### Others
 # Picture in picture floating and sticky
 for_window [app_id="firefox" title="^Picture-in-Picture$"] border none, floating enable, sticky enable
-
-# Fixing zoom
-for_window [class="zoom"] floating enable
-for_window [class="obs"] floating enable
 
 # Add global variable
 set $XDG_CURRENT_DESKTOP sway
 
 # Notification Daemon
-# exec --no-startup-id dunst
-exec swaync
+exec [! pgrep -x swaync ] swaync
+
 # Toggle control center
 bindsym $mod+Shift+n exec swaync-client -t -sw
 
