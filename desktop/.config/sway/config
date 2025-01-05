@@ -65,6 +65,7 @@ output DP-5 pos 2560 0 res 2560x1440
 output DP-6 pos 3300 1440 res 960x640
 
 # Manage lid events
+exec_always --no-startup-id /home/dariobf/.config/sway/scripts/clamshell.sh reload
 set $laptop eDP-1
 bindswitch --reload --locked lid:on exec /home/dariobf/.config/sway/scripts/clamshell.sh on
 bindswitch --reload --locked lid:off exec /home/dariobf/.config/sway/scripts/clamshell.sh off

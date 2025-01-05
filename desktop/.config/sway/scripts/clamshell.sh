@@ -1,29 +1,16 @@
 #!/bin/bash
 
 # SETTINGS
-# ============
-
-# Debugging options: off | on | log
-DEBUG="on"
+DEBUG="off"
 DEBUG_COMMANDS=0
 
 LAPTOP_OUTPUT="eDP-1"
+MAIN_DISPLAY="DP-5"
+SECONDARY_DISPLAY="DP-4"
+MINI_DISPLAY="DP-6"
 BACKGROUND_IMAGE="/home/dariobf/.config/sway/wallpapers/purple_landscape.jpg"
 
-# Monitor outputs
-DOCKED_OUTPUTS=("DP-4" "DP-5" "DP-6") # Define aquí los nombres de las salidas del dock
-WORKSPACE_ASSIGNMENTS=(
-    "1:DP-5"
-    "2:DP-5"
-    "3:DP-5"
-    "4:DP-4"
-		"5:DP-4"
-    "6:DP-6"
-)
-
 # HELPERS
-# ============
-
 log() {
     [[ "$DEBUG" != "off" ]] && echo "$1"
 }
@@ -31,56 +18,53 @@ log() {
 [[ $DEBUG == "log" ]] && exec >> /tmp/clamshell.log 2>&1
 [[ $DEBUG_COMMANDS -eq 1 ]] && set -x
 
-# START
-# ============
-
-log "Script invocation: $0 $*"
+assign_workspaces() {
+    if [ "$1" = "on" ]; then
+        swaymsg workspace 1 output $MAIN_DISPLAY
+        swaymsg workspace 2 output $MAIN_DISPLAY
+        swaymsg workspace 3 output $MAIN_DISPLAY
+        swaymsg workspace 4 output $SECONDARY_DISPLAY
+        swaymsg workspace 5 output $SECONDARY_DISPLAY
+        swaymsg workspace 6 output $MINI_DISPLAY
+        log "Workspaces assigned: 1-3 to $MAIN_DISPLAY, 4-5 to $SECONDARY_DISPLAY, 6 to $MINI_DISPLAY"
+    elif [ "$1" = "off" ]; then
+			if echo "$active_outputs" | grep -qv "$LAPTOP_OUTPUT"; then
+					swaymsg workspace 5 output $LAPTOP_OUTPUT
+					log "External monitors active. Assigned workspace 5 to $LAPTOP_OUTPUT"
+			else
+					for ws in {1..6}; do
+							swaymsg workspace $ws output $LAPTOP_OUTPUT
+					done
+					log "No external monitors active. All workspaces assigned to $LAPTOP_OUTPUT"
+			fi
+    fi
+}
 
 # Detect active outputs
 active_outputs=$(swaymsg -t get_outputs | jq -r '.[] | select(.active) | .name')
 only_laptop=$(expr "${active_outputs}" == "${LAPTOP_OUTPUT}")
 
+log "Script invocation: $0 $*"
 log "Active outputs: $active_outputs"
 log "Only Laptop?    $only_laptop"
 
 if [ "$1" = "on" ]; then
     log "Clamshell mode ON: Disabling laptop output."
     swaymsg output "$LAPTOP_OUTPUT" disable
-
-    # If only the laptop was active, lock and suspend
+		assign_workspaces on
     if [ $only_laptop -eq 1 ]; then
         log "Only laptop output active, locking and suspending."
         /usr/bin/swaylock -f -i "$BACKGROUND_IMAGE" && /usr/bin/systemctl suspend
-    else
-        log "Docked mode detected. Configuring workspaces for docked outputs."
-        for output in "${DOCKED_OUTPUTS[@]}"; do
-            if ! echo "$active_outputs" | grep -q "$output"; then
-                log "Warning: Expected output $output not found among active outputs."
-            fi
-        done
-
-        # Assign workspaces to active outputs
-        for assignment in "${WORKSPACE_ASSIGNMENTS[@]}"; do
-            workspace="${assignment%%:*}" # Extract workspace number
-            output="${assignment##*:}"   # Extract output name
-            if echo "$active_outputs" | grep -q "$output"; then
-                log "Assigning workspace $workspace to output $output."
-                swaymsg "workspace $workspace output $output"
-            else
-                log "Skipping workspace $workspace: Output $output not active."
-            fi
-        done
     fi
-
 elif [ "$1" = "off" ]; then
     log "Clamshell mode OFF: Enabling laptop output."
     swaymsg output "$LAPTOP_OUTPUT" enable
-
-    # Optional: Reset workspace assignments if needed
-    for output in "${DOCKED_OUTPUTS[@]}"; do
-        if echo "$active_outputs" | grep -q "$output"; then
-            log "Resetting workspace assignment for output $output."
-            swaymsg "workspace 1 output $output" # Example: Reset to workspace 1
-        fi
-    done
+		assign_workspaces off
+elif [ "$1" = "reload" ]; then
+    log "Reload detected: Checking clamshell status."
+    if echo "$active_outputs" | grep -q "$LAPTOP_OUTPUT"; then
+        "$0" off
+    else
+        "$0" on
+    fi
 fi
