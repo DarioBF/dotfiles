@@ -1,6 +1,6 @@
 #### DEPENDENCIES
 #
-# wofi          - Launcher
+# rofi-wayland  - Launcher (https://github.com/lbonn/rofi/tree/wayland?tab=readme-ov-file#installation)
 # swaync        - Notifications (https://github.com/ErikReider/SwayNotificationCenter)
 # brightnessctl - Screen brightness control
 # grim + slurp  - For Screenshots
@@ -55,7 +55,8 @@ input "2362:628:PIXA3854:00_093A:0274_Touchpad" {
 ### Output configuration
 
 # Wallpaper
-output * bg /home/dariobf/.config/sway/wallpapers/purple_landscape.jpg fill
+# output * bg /home/dariobf/.config/sway/wallpapers/purple_landscape.jpg fill
+output * bg /home/dariobf/.config/sway/wallpapers/wallhaven_debian.png fill
 
 # Laptop display scaling
 # If needed to reconfigure, use 'swaymsg -t get_outputs'
