@@ -38,6 +38,7 @@ assign_workspaces() {
 					log "No external monitors active. All workspaces assigned to $LAPTOP_OUTPUT"
 			fi
     fi
+		swaymsg workspace 1
 }
 
 # Detect active outputs
