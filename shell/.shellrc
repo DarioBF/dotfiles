@@ -56,3 +56,5 @@ alias filezilla="/home/dariobf/FileZilla3/bin/filezilla"
 
 alias cleardev="ls | xargs rm -rf"
 alias cleandev="ls | xargs rm -rf"
+
+alias raw2jpg='find . -type f \( -iname "*.raw" -o -iname "*.nef" \) -exec bash -c '\''f="{}"; darktable-cli "$f" "${f%.*}.jpg" && rm "$f"'\'' \;'
