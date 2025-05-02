@@ -40,7 +40,7 @@ button:hover {
 
 #workspaces button.focused {
 	background-color: rgba(0, 0, 0, 0.3);
-	color: @peach;
+	color: #fab387;
 	border-top: 2px solid @peach;
 }
 

@@ -3,10 +3,10 @@
 	"height": 30,
 	"spacing": 10,
 	"modules-left": [
-		"sway/workspaces"
+		"hyprland/workspaces"
 	],
 	"modules-center": [
-		""
+		"clock"
 	],
 	"modules-right": [
 		"temperature",
@@ -14,27 +14,9 @@
 		"backlight",
 		"tray",
 		"network",
-		"battery",
-		"clock"
+		"battery"
 	],
-	"sway/mode": {
-		"format": "<span style=\"italic\">{}</span>"
-	},
-	"sway/scratchpad": {
-		"format": "{icon} {count}",
-		"show-empty": false,
-		"format-icons": [
-			"",
-			""
-		],
-		"tooltip": true,
-		"tooltip-format": "{app}: {title}"
-	},
-	"sway/window": {
-		"on-click": "ags -t datemenu",
-		"tooltip": false
-	},
-	"sway/workspaces": {
+	"hyprland/workspaces": {
 		"format": "{icon}",
 		"on-click": "activate",
 		"format-icons": {
