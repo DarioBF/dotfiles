@@ -33,11 +33,11 @@ prompt {
 }
 
 textbox-prompt-colon {
-	padding: 1px 0px 0px 0px;
+	padding: 0 4px;
 	background-color: @al;
 	text-color: @ac;
 	expand: false;
-	str: "";
+	str: "";
 	font: "feather 10";
 }
 

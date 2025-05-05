@@ -6,87 +6,84 @@ uptime=$(uptime -p | sed -e 's/up //g')
 rofi_command="rofi -no-config -theme $DIR/powermenu.rasi"
 
 # Options
-lock=" Bloquear"
-suspend=" Suspender"
-logout="󰍃 Cerrar Sesión"
-reboot="󰜉 Reiniciar"
-shutdown="󰐥 Apagar"
+lock=" Lock"
+suspend=" Suspend"
+logout="󰍃 Logout"
+reboot="󰜉 Reboot"
+shutdown="󰐥 Shutdown"
 
-# Confirmation
+# Confirmation prompt
 confirm_exit() {
-	rofi -dmenu\
-        -no-config\
-		-i\
-		-no-fixed-num-lines\
-		-p "Are You Sure? : "\
-		-theme $DIR/confirm.rasi
+    echo -e "yes\nno" | rofi -dmenu \
+        -no-config \
+        -i \
+        -p "Are you sure?" \
+        -theme "$DIR/confirm.rasi"
 }
 
-# Message
+# Error message
 msg() {
-	rofi -no-config -theme "$DIR/message.rasi" -e "Available Options  -  yes / y / no / n"
+    rofi -no-config -theme "$DIR/message.rasi" -e "Available options: yes / y / no / n"
 }
 
-# Variable passed to rofi
+# Main options
 options="$lock\n$suspend\n$logout\n$reboot\n$shutdown"
-
 chosen="$(echo -e "$options" | $rofi_command -p "Uptime: $uptime" -dmenu -selected-row 0)"
-case $chosen in
-    $shutdown)
-		ans=$(confirm_exit &)
-		if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
-			systemctl poweroff
-		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
-			exit 0
-        else
-			msg
-        fi
+
+case "$chosen" in
+    "$shutdown")
+        ans=$(confirm_exit)
+        [[ "$ans" =~ ^(yes|y|YES|Y)$ ]] && systemctl poweroff || ([[ "$ans" =~ ^(no|n|NO|N)$ ]] || msg)
         ;;
-    $reboot)
-		ans=$(confirm_exit &)
-		if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
-			systemctl reboot
-		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
-			exit 0
-        else
-			msg
-        fi
+    "$reboot")
+        ans=$(confirm_exit)
+        [[ "$ans" =~ ^(yes|y|YES|Y)$ ]] && systemctl reboot || ([[ "$ans" =~ ^(no|n|NO|N)$ ]] || msg)
         ;;
-    $lock)
-		if [[ -f /usr/bin/i3lock ]]; then
-			i3lock
-		elif [[ -f /usr/bin/betterlockscreen ]]; then
-			betterlockscreen -l
-		fi
-        ;;
-    $suspend)
-		ans=$(confirm_exit &)
-		if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
-			mpc -q pause
-			amixer set Master mute
-			systemctl suspend
-		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
-			exit 0
-        else
-			msg
-        fi
-        ;;
-    $logout)
-		ans=$(confirm_exit &)
-		if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
-			if [[ "$DESKTOP_SESSION" == "sway" ]]; then
-				swaymsg exit
-			elif [[ "$DESKTOP_SESSION" == "Openbox" ]]; then
-				openbox --exit
-			elif [[ "$DESKTOP_SESSION" == "bspwm" ]]; then
-				bspc quit
-			elif [[ "$DESKTOP_SESSION" == "i3" ]]; then
-				i3-msg exit
+		"$lock")
+			if command -v swaylock &>/dev/null; then
+					swaylock
+			elif command -v i3lock &>/dev/null; then
+					i3lock
+			elif command -v betterlockscreen &>/dev/null; then
+					betterlockscreen -l
+			else
+					rofi -no-config -theme "$DIR/message.rasi" -e "No lock tool found (swaylock, i3lock, betterlockscreen)"
 			fi
-		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
-			exit 0
-        else
-			msg
+			;;
+		"$suspend")
+			ans=$(confirm_exit)
+			if [[ "$ans" == "yes" || "$ans" == "YES" || "$ans" == "y" || "$ans" == "Y" ]]; then
+					mpc -q pause &>/dev/null
+					amixer set Master mute &>/dev/null
+
+					if command -v swaylock &>/dev/null; then
+							swaylock & sleep 1 && systemctl suspend
+					elif command -v i3lock &>/dev/null; then
+							i3lock && systemctl suspend
+					elif command -v betterlockscreen &>/dev/null; then
+							betterlockscreen -l && systemctl suspend
+					else
+							rofi -no-config -theme "$DIR/message.rasi" -e "No lock tool found (swaylock, i3lock, betterlockscreen)"
+					fi
+			elif [[ "$ans" == "no" || "$ans" == "NO" || "$ans" == "n" || "$ans" == "N" ]]; then
+					exit 0
+			else
+					msg
+			fi
+			;;
+    "$logout")
+        ans=$(confirm_exit)
+        if [[ "$ans" =~ ^(yes|y|YES|Y)$ ]]; then
+            case "$DESKTOP_SESSION" in
+                sway) swaymsg exit ;;
+                Hyprland|hyprland) hyprctl dispatch exit || hyprctl dispatch stop ;;
+                Openbox) openbox --exit ;;
+                bspwm) bspc quit ;;
+                i3) i3-msg exit ;;
+                *) msg ;;
+            esac
+        elif [[ ! "$ans" =~ ^(no|n|NO|N)$ ]]; then
+            msg
         fi
         ;;
 esac
