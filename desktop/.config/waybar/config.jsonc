@@ -6,15 +6,14 @@
 		"hyprland/workspaces"
 	],
 	"modules-center": [
-		"clock"
+		"hyprland/window"
 	],
 	"modules-right": [
 		"temperature",
 		"pulseaudio",
-		"backlight",
-		"tray",
 		"network",
-		"battery"
+		"battery",
+		"clock"
 	],
 	"hyprland/workspaces": {
 		"disable-scroll": true,
@@ -41,10 +40,7 @@
 		"hwmon-path": "/home/dariobf/.local/devices/cpu/temp1_input",
 		"critical-threshold": 80,
 		"interval": 2,
-		"format": "{temperatureC}°C"
-	},
-	"tray": {
-		"spacing": 10
+		"format": " {temperatureC}°C"
 	},
 	"clock": {
 		"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
@@ -53,19 +49,6 @@
 	"clock#date": {
 		"format": "{:%d.%m.%Y}",
 		"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
-	},
-	"backlight": {
-		"format": "{icon}{percent}%",
-		"format-icons": [
-			" ",
-			" ",
-			" ",
-			" ",
-			" ",
-			" ",
-			" ",
-			" "
-		]
 	},
 	"battery": {
 		"states": {
@@ -82,7 +65,6 @@
 			" ",
 			" "
 		],
-		"on-click": "ags -t quicksettings"
 	},
 	"pulseaudio": {
 		"format": "{icon}{volume}%",
@@ -91,30 +73,16 @@
 		"format-muted": "󰝟  muted",
 		"format-icons": {
 			"default": [
-				"󰕿 ",
-				"󰖀 ",
-				"󰕾 "
+				"󰕿",
+				"󰖀",
+				"󰕾"
 			]
 		},
 		"on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
 	},
-	"custom/weather": {
-		"format": "{}",
-		"interval": 3600,
-		"exec": "curl -s 'https://wttr.in/~43.26160,-4.06728?format=1'",
-		"exec-if": "ping wttr.in -c1"
-	},
-	"custom/vpn": {
-		"tooltip": false,
-		"format": "VPN {} ",
-		"exec": "mullvad status | grep -q 'Connected' && echo '' || echo ''",
-		"interval": 5,
-		"on-click": "mullvad connect",
-		"on-click-right": "mullvad disconnect"
-	},
 	"network": {
 		"format-wifi": "   {essid}",
-		"format-ethernet": "⬇{bandwidthDownBytes} ⬆{bandwidthUpBytes}",
+		"format-ethernet": "",
 		"interval": 3,
 		"format-linked": "{ifname} (No IP) ",
 		"format": " ",
