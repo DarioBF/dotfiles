@@ -35,7 +35,7 @@ alias lerr8='lando logs --s appserver -f | grep "\[php8:"'
 
 alias almacen='sshfs dariobf@192.168.1.250:/media/almacen /media/Almacen'
 alias bfserver='ssh dariobf@192.168.1.250'
-alias homebackup='sudo mount -t cifs //192.168.1.135/DarioBF /media/HomeBackup -o username=dariobf'
+alias homebackup='sudo mount -t cifs //192.168.1.135/DarioBF /media/HomeBackup -o username=dariobf,uid=$(id -u),gid=$(id -g),file_mode=0664,dir_mode=0775'
 
 alias ovim="/usr/bin/vim"
 alias vi="lvim"
