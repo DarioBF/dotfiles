@@ -39,7 +39,7 @@ cat > .lando.yml <<EOF
 name: `basename "$DIR"`
 recipe: wordpress
 config:
-  php: "7.4"
+  php: "8.3"
   webroot: .
   xdebug: true
 services:
