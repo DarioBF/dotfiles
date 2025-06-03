@@ -18,9 +18,9 @@ DEBUG="off"
 DEBUG_COMMANDS=0
 
 LAPTOP_OUTPUT="eDP-1"
-MAIN_DISPLAY="DP-5"
-SECONDARY_DISPLAY="DP-4"
-MINI_DISPLAY="DP-6"
+MAIN_DISPLAY=$(hyprctl monitors -j | jq -r '.[] | select(.description | test("DELL U2715H GH85D7CN014S")) | .name')
+SECONDARY_DISPLAY=$(hyprctl monitors -j | jq -r '.[] | select(.description | test("DELL U2715H GH85D74E1U4S")) | .name')
+MINI_DISPLAY=$(hyprctl monitors -j | jq -r '.[] | select(.description | test("TYPE-C L56051794302")) | .name')
 BACKGROUND_IMAGE="/home/dariobf/.dariobf/wallpapers/FrameworkMoon.jpg"
 WAYBAR_CONFIG="$HOME/.config/waybar/config.json"
 
