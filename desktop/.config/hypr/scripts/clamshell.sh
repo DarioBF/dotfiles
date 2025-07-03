@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# REQUIREMENTS
+# swaylock
+
 # HELPERS
 export WAYLAND_DISPLAY=wayland-1  # Cambia a wayland-0 si es necesario
 export XDG_RUNTIME_DIR="/run/user/$(id -u)"

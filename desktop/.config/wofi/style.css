@@ -1,43 +1,73 @@
+@define-color	selected-text #fab387;
+@define-color	text #cdd6f4;
+@define-color	base #1e1e2e;
+
 * {
-	font-family: 'Hack';
+	font-family: 'JetBrainsMono', monospace;
+	font-size: 18px;
 }
 
 window {
 	margin: 0px;
-	border: 1px solid #88c0d0;
-	background-color: #2e3440;
-}
-
-#input {
-	margin: 5px;
-	border: none;
-	color: #d8dee9;
-	background-color: #3b4252;
+	padding: 20px;
+	background-color: @base;
+	opacity: 1;
 }
 
 #inner-box {
-	margin: 5px;
+	margin: 0;
+	padding: 0;
 	border: none;
-	background-color: #2e3440;
+	background-color: @base;
 }
 
 #outer-box {
-	margin: 5px;
+	margin: 0;
+	padding: 20px;
 	border: none;
-	background-color: #2e3440;
+	background-color: @base;
 }
 
 #scroll {
-	margin: 0px;
+	margin: 0;
+	padding: 0;
+	border: none;
+	background-color: @base;
+}
+
+#input {
+	margin: 0;
+	padding: 10px;
+	border: none;
+	background-color: @base;
+	color: @text;
+}
+
+#input:focus {
+	outline: none;
+	box-shadow: none;
 	border: none;
 }
 
 #text {
 	margin: 5px;
 	border: none;
-	color: #d8dee9;
+	color: @text;
+}
+
+#entry {
+	background-color: @base;
 }
 
 #entry:selected {
-	background-color: #3b4252;
+	outline: none;
+	border: none;
+}
+
+#entry:selected #text {
+	color: @selected-text;
+}
+
+#entry image {
+	-gtk-icon-transform: scale(0.7);
 }
