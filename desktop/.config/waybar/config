@@ -7,7 +7,8 @@
       "hyprland/workspaces"
     ],
     "modules-center": [
-      "clock"
+      "clock",
+      "custom/update"
     ],
     "modules-right": [
 			"temperature",
@@ -122,5 +123,12 @@
       "tooltip-format": "Playing at {volume}%",
       "on-click-right": "pamixer -t",
       "ignored-sinks": ["Easy Effects Sink"]
+    },
+    "custom/update": {
+      "format": "",
+      "exec": "omarchy-update-available",
+      "on-click": "alacritty --class Omarchy --title Omarchy -e omarchy-update",
+      "tooltip-format": "Omarchy update available",
+      "interval": 3600
     }
 }
