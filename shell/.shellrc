@@ -26,6 +26,8 @@ alias l='lsd --group-dirs=first'
 alias lla='lsd -lha --group-dirs=first'
 alias ls='lsd --group-dirs=first'
 
+alias cat='bat --tabs 2'
+
 alias dev='cd ~/DEV'
 alias hosts='sudo nano /etc/hosts'
 
@@ -38,8 +40,8 @@ alias bfserver='ssh dariobf@192.168.1.250'
 alias homebackup='sudo mount -t cifs //192.168.1.135/DarioBF /media/HomeBackup -o username=dariobf,uid=$(id -u),gid=$(id -g),file_mode=0664,dir_mode=0775,vers=3.0,mfsymlinks'
 
 alias ovim="/usr/bin/vim"
-alias vi="lunarvim"
-alias vim="lunarvim"
+alias vi="lazyvim"
+alias vim="lazyvim"
 
 alias ga="git add"
 alias gc="git commit"
