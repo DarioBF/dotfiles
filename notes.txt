@@ -1,2 +1,0 @@
-Para hacer funcionar el touchpad del framework he utilizado libinput; una vez activado se configura el tapping a on y listo.
-
