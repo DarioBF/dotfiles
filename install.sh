@@ -29,6 +29,9 @@ title "Tweaking David's basics and setup my customs"
 subtitle "Creating DEV directory"
 mkdir ~/DEV
 
+subtitle "Removing .gitconfig"
+rm ~/.gitconfig
+
 subtitle "Copying wallpaper to omarchy's folder"
 cp "$SRC_BF"/wallpapers/FrameworkMoon.jpg ~/.config/omarchy/themes/catppuccin/backgrounds/4-framework-moon.jpg
 
