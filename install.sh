@@ -3,6 +3,17 @@
 cd "$(dirname "$0")"
 SRC_BF=$(pwd)
 
+title() {
+  echo ""
+  gum style --trim --border=thick --padding="1 10" "$1"
+  echo ""
+}
+
+subtitle() {
+  echo ""
+  gum style --trim --foreground=6 "$1"
+}
+
 #############################
 title "Let's clone David Aguilera's cool basic settings"
 #############################
