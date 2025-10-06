@@ -32,16 +32,14 @@ mkdir ~/DEV
 subtitle "Removing .gitconfig"
 rm ~/.gitconfig
 
+subtitle "Installing utilities"
+sudo pacman -S cifs-utils
+
+subtitle "Installing background"
 NEW_BACKGROUND="$HOME/.config/omarchy/current/theme/backgrounds/4-framework-moon.jpg"
 CURRENT_BACKGROUND_LINK="$HOME/.config/omarchy/current/background"
-
-# Copiar el bg (ya lo tienes)
 cp -f "$SRC_BF/wallpapers/FrameworkMoon.jpg" "$NEW_BACKGROUND"
-
-# Poner el link
 ln -nsf "$NEW_BACKGROUND" "$CURRENT_BACKGROUND_LINK"
-
-# Relaunch swaybg
 pkill -x swaybg
 setsid uwsm app -- swaybg -i "$CURRENT_BACKGROUND_LINK" -m fill >/dev/null 2>&1
 
