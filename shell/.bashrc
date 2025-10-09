@@ -1,4 +1,7 @@
+alias pass="echo dummy"
 source ~/.davilera/shell/.bashrc
+unalias pass
+unalias aws
 
 alias dev='cd ~/DEV'
 alias hosts='sudo nano /etc/hosts'
@@ -14,4 +17,3 @@ alias homebackup='sudo mount -t cifs //192.168.1.135/DarioBF /media/HomeBackup -
 alias mkwp="/home/dariobf/.dariobf/mkwp"
 alias cleardev="ls | xargs rm -rf"
 alias cleandev="ls | xargs rm -rf"
-
