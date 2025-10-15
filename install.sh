@@ -33,7 +33,7 @@ subtitle "Removing .gitconfig"
 rm ~/.gitconfig
 
 subtitle "Installing utilities"
-sudo pacman -S cifs-utils
+sudo pacman -S cifs-utils nano
 
 subtitle "Installing background"
 NEW_BACKGROUND="$HOME/.config/omarchy/current/theme/backgrounds/4-framework-moon.jpg"

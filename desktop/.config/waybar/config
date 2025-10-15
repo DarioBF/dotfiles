@@ -61,8 +61,8 @@
     },
     "clock": {
       "format": "{:%A %d, %H:%M}",
-      "format-alt": "{:%d %B W%V %Y}",
-      "tooltip": false
+      "tooltip": false,
+			"on-click": "exec setsid uwsm app -- alacritty --class=Omarchy -o font.size=9 -e bash -c 'calcure; read -n 1 -s'"
     },
     "network": {
       "format-icons": ["󰤯","󰤟","󰤢","󰤥","󰤨"],
