@@ -4,21 +4,22 @@ cd "$(dirname "$0")"
 SRC_BF=$(pwd)
 
 title() {
-  echo ""
-  gum style --trim --border=thick --padding="1 10" "$1"
-  echo ""
+	echo ""
+	gum style --trim --border=thick --padding="1 10" "$1"
+	echo ""
 }
 
 subtitle() {
-  echo ""
-  gum style --trim --foreground=6 "$1"
+	echo ""
+	gum style --trim --foreground=6 "$1"
 }
 
 #############################
 title "Let's clone David Aguilera's cool basic settings"
 #############################
-
+cd /home/dariobf/
 git clone https://github.com/davilera/dotfiles .davilera
+cd .davilera
 chmod +x install.sh
 ./install.sh
 cd "$SRC_BF"
