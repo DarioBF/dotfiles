@@ -67,15 +67,8 @@ rm -f ~/.bashrc
 stow shell
 
 subtitle "Cleaning bloatware"
-ICON_DIR="$HOME/.local/share/applications/icons"
-DESKTOP_DIR="$HOME/.local/share/applications/"
 APP_NAMES=("Basecamp" "Discord" "GitHub" "Google Contacts" "Google Messages" "Google Photos" "HEY" "X" "YouTube")
-
-for APP_NAME in "${APP_NAMES[@]}"; do
-  rm -f "$DESKTOP_DIR/$APP_NAME.desktop"
-  rm -f "$ICON_DIR/$APP_NAME.png"
-  echo "Removed $APP_NAME"
-done
+omarchy-webapp-remove "${APP_NAMES[@]}"
 
 sudo pacman -Rns --no-confirm 1password-beta 1password-cli typora
 
