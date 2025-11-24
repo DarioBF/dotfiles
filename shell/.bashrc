@@ -1,7 +1,7 @@
 alias pass="echo dummy"
 source ~/.davilera/shell/.bashrc
 unalias pass
-unalias aws
+unset aws
 
 alias dev='cd ~/DEV'
 alias hosts='sudo nano /etc/hosts'
