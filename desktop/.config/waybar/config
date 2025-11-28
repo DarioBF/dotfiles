@@ -1,135 +1,160 @@
 {
   "layer": "top",
-    "position": "top",
-    "spacing": 0,
-    "height": 26,
-    "modules-left": [
-      "hyprland/workspaces"
-    ],
-    "modules-center": [
-      "clock",
-      "custom/update"
-    ],
-    "modules-right": [
-			"temperature",
-      "bluetooth",
-      "network",
-      "pulseaudio",
-      "cpu",
-      "battery"
-    ],
-    "hyprland/workspaces": {
-      "on-click": "activate",
-      "format": "{icon}",
-      "format-icons": {
-        "default": "",
-        "1": "󰣇",
-        "2": "",
-        "3": "",
-        "4": "󰏘",
-        "5": "󰭹",
-        "6": "󱣛",
-        "7": "󱣛",
-        "8": "󱣛",
-        "active": "󱓻"
-      },
-      "persistent-workspaces": {
-        "eDP-1": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8
-        ]
-      }
+  "position": "top",
+  "spacing": 0,
+  "height": 26,
+  "modules-left": [
+    "hyprland/workspaces"
+  ],
+  "modules-center": [
+    "clock",
+    "custom/update"
+  ],
+  "modules-right": [
+    "temperature",
+    "bluetooth",
+    "network",
+    "pulseaudio",
+    "cpu",
+    "battery"
+  ],
+  "hyprland/workspaces": {
+    "on-click": "activate",
+    "format": "{icon}",
+    "format-icons": {
+      "default": "",
+      "1": "󰣇",
+      "2": "",
+      "3": "",
+      "4": "󰏘",
+      "5": "󰭹",
+      "6": "󱣛",
+      "7": "󱣛",
+      "8": "󱣛",
+      "active": "󱓻"
     },
-		"temperature": {
-			// "thermal-zone": 2,
-			"hwmon-path": "/home/dariobf/.local/devices/cpu/temp1_input",
-			"critical-threshold": 80,
-			"interval": 2,
-			"format": " {temperatureC}°C",
-			"on-click": "kitty -e btop"
-		},
-    "cpu": {
-      "interval": 5,
-      "format": "󰍛",
-      "on-click": "alacritty -e btop"
-    },
-    "clock": {
-      "format": "{:%A %d, %H:%M}",
-      "tooltip": false,
-			"on-click": "exec setsid uwsm app -- alacritty --class=Omarchy -o font.size=9 -e bash -c 'calcure; read -n 1 -s'"
-    },
-    "network": {
-      "format-icons": ["󰤯","󰤟","󰤢","󰤥","󰤨"],
-      "format" : "{icon}",
-      "format-wifi" : "{icon}",
-      "format-ethernet" : "󰀂",
-      "format-disconnected" : "󰖪",
-      "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
-      "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
-      "tooltip-format-disconnected": "Disconnected",
-      "interval": 3,
-      "nospacing": 1,
-      "on-click": "alacritty --class=Impala -e impala"
-    },
-    "battery": {
-      "format": "{capacity}% {icon}",
-      "format-discharging": "{icon}",
-      "format-charging":    "{icon}",
-      "format-plugged":     "",
-      "format-icons": {
-        "charging": [
-          "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"
-        ],
-        "default": [
-          "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"
-        ]
-      },
-      "format-full": "Charged ",
-      "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
-      "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}%",
-      "interval": 5,
-      "states": {
-        "warning": 20,
-        "critical": 10
-      }
-    },
-    "bluetooth": {
-      "format": "",
-      "format-disabled": "󰂲",
-      "format-connected": "",
-      "tooltip-format": "Devices connected: {num_connections}",
-			"on-click": "exec setsid uwsm app -- alacritty --class=Omarchy -o font.size=9 -e bash -c 'bluetuith; read -n 1 -s'"
-    },
-    "pulseaudio": {
-      "format": "{icon} {volume}%",
-      "format-icons": {
-        "default": [
-            "󰕿",
-            "󰖀",
-            "󰕾"
-          ]
-      },
-      "format-muted": "󰝟",
-      "scroll-step": 5,
-      "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+",
-      "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
-    		"on-click": "omarchy-launch-or-focus-tui wiremix",
-
-      "tooltip-format": "Playing at {volume}%",
-      "on-click-right": "pamixer -t",
-      "ignored-sinks": ["Easy Effects Sink"]
-    },
-    "custom/update": {
-      "format": "",
-      "exec": "omarchy-update-available",
-      "on-click": "alacritty --class Omarchy --title Omarchy -e omarchy-update",
-      "tooltip-format": "Omarchy update available",
-      "interval": 3600
+    "persistent-workspaces": {
+      "eDP-1": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
     }
+  },
+  "temperature": {
+    // "thermal-zone": 2,
+    "hwmon-path": "/home/dariobf/.local/devices/cpu/temp1_input",
+    "critical-threshold": 80,
+    "interval": 2,
+    "format": " {temperatureC}°C",
+    "on-click": "kitty -e btop"
+  },
+  "cpu": {
+    "interval": 5,
+    "format": "󰍛",
+    "on-click": "kitty -e btop"
+  },
+  "clock": {
+    "format": "{:%A %d, %H:%M}",
+    "tooltip": false,
+    "on-click": "exec setsid uwsm app -- kitty --class=Omarchy -o font.size=9 -e bash -c 'calcure; read -n 1 -s'"
+  },
+  "network": {
+    "format-icons": [
+      "󰤯",
+      "󰤟",
+      "󰤢",
+      "󰤥",
+      "󰤨"
+    ],
+    "format": "{icon}",
+    "format-wifi": "{icon}",
+    "format-ethernet": "󰀂",
+    "format-disconnected": "󰖪",
+    "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+    "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+    "tooltip-format-disconnected": "Disconnected",
+    "interval": 3,
+    "nospacing": 1,
+    "on-click": "kitty --class=Impala -e impala"
+  },
+  "battery": {
+    "format": "{capacity}% {icon}",
+    "format-discharging": "{icon}",
+    "format-charging": "{icon}",
+    "format-plugged": "",
+    "format-icons": {
+      "charging": [
+        "󰢜",
+        "󰂆",
+        "󰂇",
+        "󰂈",
+        "󰢝",
+        "󰂉",
+        "󰢞",
+        "󰂊",
+        "󰂋",
+        "󰂅"
+      ],
+      "default": [
+        "󰁺",
+        "󰁻",
+        "󰁼",
+        "󰁽",
+        "󰁾",
+        "󰁿",
+        "󰂀",
+        "󰂁",
+        "󰂂",
+        "󰁹"
+      ]
+    },
+    "format-full": "Charged ",
+    "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
+    "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}%",
+    "interval": 5,
+    "states": {
+      "warning": 20,
+      "critical": 10
+    }
+  },
+  "bluetooth": {
+    "format": "",
+    "format-disabled": "󰂲",
+    "format-connected": "",
+    "tooltip-format": "Devices connected: {num_connections}",
+    "on-click": "exec setsid uwsm app -- kitty --class=Omarchy -o font.size=9 -e bash -c 'bluetuith; read -n 1 -s'"
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-icons": {
+      "default": [
+        "󰕿",
+        "󰖀",
+        "󰕾"
+      ]
+    },
+    "format-muted": "󰝟",
+    "scroll-step": 5,
+    "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+    "on-click": "omarchy-launch-or-focus-tui wiremix",
+    "tooltip-format": "Playing at {volume}%",
+    "on-click-right": "pamixer -t",
+    "ignored-sinks": [
+      "Easy Effects Sink"
+    ]
+  },
+  "custom/update": {
+    "format": "",
+    "exec": "omarchy-update-available",
+    "on-click": "kitty --class Omarchy --title Omarchy -e omarchy-update",
+    "tooltip-format": "Omarchy update available",
+    "interval": 3600
+  }
 }
