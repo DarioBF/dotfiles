@@ -38,6 +38,9 @@ title "Tweaking David's basics and setup my customs"
 
 subtitle "Creating DEV directory"
 mkdir -p ~/DEV
+sudo mkdir -p /media
+sudo mkdir -p /media/Almacen
+sudo mkdir -p /media/HomeBackup
 
 subtitle "Removing .gitconfig"
 rm -f ~/.gitconfig
