@@ -49,3 +49,5 @@ mkpot() {
   echo "Generando archivo POT para el dominio '${domain}'..."
   lando wp i18n make-pot . "$output_file" --domain="$domain"
 }
+
+eval "$(starship init bash)"

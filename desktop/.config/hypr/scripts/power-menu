@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# HELPERS
+export WAYLAND_DISPLAY=wayland-1 # Cambia a wayland-0 si es necesario
+export XDG_RUNTIME_DIR="/run/user/$(id -u)"
+
+items="Shutdown\nReboot\nSuspend"
+output=$(echo -e $items | walker --dmenu --nosearch --hideqa --maxheight 200)
+if [[ "$output" == "Shutdown" ]]; then
+  shutdown now
+elif [[ "$output" == "Reboot" ]]; then
+  reboot
+elif [[ "$output" == "Suspend" ]]; then
+  BACKGROUND_IMAGE="$HOME/.dariobf/wallpapers/FrameworkMoon.jpg"
+  swaylock -f -i "$BACKGROUND_IMAGE" && systemctl suspend
+else
+  echo "Seleccione un comando"
+fi

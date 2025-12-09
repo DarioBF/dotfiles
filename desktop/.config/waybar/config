@@ -7,8 +7,7 @@
     "hyprland/workspaces"
   ],
   "modules-center": [
-    "clock",
-    "custom/update"
+    "clock"
   ],
   "modules-right": [
     "temperature",
@@ -34,20 +33,18 @@
       "active": "󱓻"
     },
     "persistent-workspaces": {
-      "eDP-1": [
+      "DP-11": [
         1,
         2,
         3,
-        4,
-        5,
-        6,
-        7,
+        4
+      ],
+      "DP-10": [
         8
       ]
     }
   },
   "temperature": {
-    // "thermal-zone": 2,
     "hwmon-path": "/home/dariobf/.local/devices/cpu/temp1_input",
     "critical-threshold": 80,
     "interval": 2,
@@ -62,7 +59,7 @@
   "clock": {
     "format": "{:%A %d, %H:%M}",
     "tooltip": false,
-    "on-click": "exec setsid uwsm app -- kitty --class=Omarchy -o font.size=9 -e bash -c 'calcure; read -n 1 -s'"
+    "on-click": "exec setsid uwsm app -- kitty --class=tui-calcure -o font.size=9 -e bash -c 'calcure; read -n 1 -s'"
   },
   "network": {
     "format-icons": [
@@ -81,7 +78,7 @@
     "tooltip-format-disconnected": "Disconnected",
     "interval": 3,
     "nospacing": 1,
-    "on-click": "kitty --class=Impala -e impala"
+    "on-click": "exec setsid uwsm app -- kitty --class=tui-impala -o font.size=9 -e bash -c 'impala; read -n 1 -s'"
   },
   "battery": {
     "format": "{capacity}% {icon}",
@@ -128,7 +125,7 @@
     "format-disabled": "󰂲",
     "format-connected": "",
     "tooltip-format": "Devices connected: {num_connections}",
-    "on-click": "exec setsid uwsm app -- kitty --class=Omarchy -o font.size=9 -e bash -c 'bluetuith; read -n 1 -s'"
+    "on-click": "exec setsid uwsm app -- kitty --class=tui-bluetuith -o font.size=9 -e bash -c 'bluetuith; read -n 1 -s'"
   },
   "pulseaudio": {
     "format": "{icon} {volume}%",
@@ -143,18 +140,11 @@
     "scroll-step": 5,
     "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+",
     "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
-    "on-click": "omarchy-launch-or-focus-tui wiremix",
+    "on-click": "exec setsid uwsm app -- kitty --class=tui-wiremix -o font.size=9 -e bash -c 'wiremix; read -n 1 -s'",
     "tooltip-format": "Playing at {volume}%",
     "on-click-right": "pamixer -t",
     "ignored-sinks": [
       "Easy Effects Sink"
     ]
-  },
-  "custom/update": {
-    "format": "",
-    "exec": "omarchy-update-available",
-    "on-click": "kitty --class Omarchy --title Omarchy -e omarchy-update",
-    "tooltip-format": "Omarchy update available",
-    "interval": 3600
   }
 }
