@@ -33,13 +33,7 @@
       "active": "󱓻"
     },
     "persistent-workspaces": {
-      "DP-11": [
-        1,
-        2,
-        3,
-        4
-      ],
-      "DP-10": [
+      "eDP-1": [
         8
       ]
     }
@@ -82,7 +76,7 @@
   },
   "battery": {
     "format": "{capacity}% {icon}",
-    "format-discharging": "{icon}",
+    "format-discharging": "{capacity}% {icon}",
     "format-charging": "{icon}",
     "format-plugged": "",
     "format-icons": {

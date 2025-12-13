@@ -11,104 +11,109 @@ fi
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time Oh My Zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
-
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
+# Faster navigation
+# -----------------
+eval "$(zoxide init --cmd j bash)"
+alias cd="j"
+alias ji="zoxide query -i"
+alias za="zoxide add"
+alias zq="zoxide query"
+alias zr="zoxide remove"
 
-# export MANPATH="/usr/local/man:$MANPATH"
+alias kitty="LIBGL_ALWAYS_SOFTWARE=true GALLIUM_DRIVER=llvmpipe kitty"
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+# NVM
+# ---
+export NVM_DIR="$HOME/.nvm"
+source /usr/share/nvm/init-nvm.sh >/dev/null 2>&1
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+# nvm use 20 is too slow. Use this instead (with --no-use):
+export NVM_BIN="${NVM_DIR}/versions/node/v20.19.4/bin"
+PATH="${NVM_BIN}:${PATH}"
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='nvim'
-# fi
+function cat() {
+  if [[ "$#" -eq 1 ]] && [ "$TERM" = 'xterm-kitty' ] && [[ "$(file "$1" | command grep -ci "image data")" -eq 1 ]]; then
+    local aux
+    aux="$(mktemp)"
+    magick "$1" -resize "480x320>" -gravity center "$aux"
+    kitten icat --align=left "$aux"
+    identify "$1"
+    rm "$aux"
+  elif [[ "$#" -eq 1 ]]; then
+    if [ "$1" == "readme.txt" ] || [[ "$1" == *.md ]] || [[ "$1" == *.markdown ]]; then
+      local aux
+      aux="$(mktemp --suffix=.md)"
+      cp "$1" "$aux"
+      glow -s tokyo-night --pager "$aux"
+      rm "$aux"
+    else
+      bat --tabs 2 "$1"
+    fi
+  else
+    bat --tabs 2 "$@"
+  fi
+}
 
-# Compilation flags
-# export ARCHFLAGS="-arch $(uname -m)"
+alias df="dysk"
+alias ping="prettyping --nolegend"
+alias tree="lsd --group-dirs=first --tree"
+alias vi="nvim"
+alias vim="nvim"
 
-# Set personal aliases, overriding those provided by Oh My Zsh libs,
-# plugins, and themes. Aliases can be placed here, though Oh My Zsh
-# users are encouraged to define aliases within a top-level file in
-# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
-# - $ZSH_CUSTOM/aliases.zsh
-# - $ZSH_CUSTOM/macos.zsh
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias dev='cd ~/DEV'
+alias hosts='sudo nano /etc/hosts'
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+alias lerr='lando logs --s appserver -f'
+alias lerr7='lando logs --s appserver -f | grep "\[php7:"'
+alias lerr8='lando logs --s appserver -f | grep "\[php8:"'
+
+alias almacen='sshfs dariobf@192.168.1.250:/media/almacen /media/Almacen'
+alias bfserver='ssh dariobf@192.168.1.250'
+alias homebackup='sudo mount -t cifs //192.168.1.135/DarioBF /media/HomeBackup -o username=dariobf,uid=$(id -u),gid=$(id -g),file_mode=0664,dir_mode=0775,vers=3.0,mfsymlinks'
+
+alias mkwp="/home/dariobf/.dariobf/mkwp"
+alias cleardev="ls | xargs rm -rf"
+alias cleandev="ls | xargs rm -rf"
+
+mkpot() {
+  local domain output_dir output_file
+
+  if [ -z "$1" ]; then
+    echo "Buscando automáticamente el text-domain..."
+    domain=$(ag -or --no-filename "_[_x]\([^)]+\)" . |
+      sed -e 's/[ \(\)]//g' |
+      awk -F',' '{print $NF}' |
+      sort | uniq -c | sort -nr |
+      head -n1 | cut -d"'" -f2)
+
+    if [ -z "$domain" ]; then
+      echo "No se pudo detectar el text-domain automáticamente."
+      echo "Uso: mkpot <text-domain>"
+      return 1
+    fi
+
+    echo "Text-domain detectado: ${domain}"
+  else
+    domain="$1"
+  fi
+
+  output_dir="lang"
+  output_file="${output_dir}/${domain}.pot"
+
+  # Crear carpeta si no existe
+  [ ! -d "$output_dir" ] && mkdir -p "$output_dir"
+
+  echo "Generando archivo POT para el dominio '${domain}'..."
+  lando wp i18n make-pot . "$output_file" --domain="$domain"
+}
+
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# export PATH="/home/dariobf/.lando/bin:$PATH"; #landopath
+export PATH="./node_modules/.bin:$BUN_INSTALL/bin:./vendor/bin:$HOME/.config/composer/vendor/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.lando/bin:$PATH:/usr/bin/vendor_perl"
