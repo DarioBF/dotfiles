@@ -38,15 +38,16 @@ export NVM_BIN="${NVM_DIR}/versions/node/v20.19.4/bin"
 PATH="${NVM_BIN}:${PATH}"
 
 function cat() {
-  if [[ "$#" -eq 1 ]] && [ "$TERM" = 'xterm-kitty' ] && [[ "$(file "$1" | command grep -ci "image data")" -eq 1 ]]; then
+  if [[ "$#" -eq 1 && "$TERM" = xterm-kitty && "$(file "$1" | command grep -ci "image data")" -eq 1 ]]; then
     local aux
     aux="$(mktemp)"
     magick "$1" -resize "480x320>" -gravity center "$aux"
     kitten icat --align=left "$aux"
     identify "$1"
     rm "$aux"
+
   elif [[ "$#" -eq 1 ]]; then
-    if [ "$1" == "readme.txt" ] || [[ "$1" == *.md ]] || [[ "$1" == *.markdown ]]; then
+    if [[ "$1" == "readme.txt" || "$1" == *.md || "$1" == *.markdown ]]; then
       local aux
       aux="$(mktemp --suffix=.md)"
       cp "$1" "$aux"
@@ -55,6 +56,7 @@ function cat() {
     else
       bat --tabs 2 "$1"
     fi
+
   else
     bat --tabs 2 "$@"
   fi

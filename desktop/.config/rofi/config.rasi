@@ -1,4 +1,4 @@
-@theme "catppuccin-default"
+//@theme "catppuccin-default"
 configuration {
   timeout {
       action: "kb-cancel";
@@ -9,3 +9,5 @@ configuration {
       sorting-method:    "name";
   }
 }
+
+@theme "/home/dariobf/.local/share/rofi/themes/rounded-orange-dark.rasi"

@@ -4,15 +4,26 @@
 export WAYLAND_DISPLAY=wayland-1 # Cambia a wayland-0 si es necesario
 export XDG_RUNTIME_DIR="/run/user/$(id -u)"
 
+# Opciones del menú
 items="Shutdown\nReboot\nSuspend"
-output=$(echo -e $items | walker --dmenu --nosearch --hideqa --maxheight 200)
-if [[ "$output" == "Shutdown" ]]; then
-  shutdown now
-elif [[ "$output" == "Reboot" ]]; then
-  reboot
-elif [[ "$output" == "Suspend" ]]; then
+items="  Shutdown\n  Reboot\n󰤄 Suspend"
+
+# Mostrar menú con rofi en modo dmenu
+output=$(echo -e "$items" | rofi -dmenu -i -p "Power Menu" -lines 3 -width 20)
+
+# Ejecutar acción según selección
+case "$output" in
+Shutdown)
+  loginctl poweroff
+  ;;
+Reboot)
+  loginctl reboot
+  ;;
+Suspend)
   BACKGROUND_IMAGE="$HOME/.dariobf/wallpapers/FrameworkMoon.jpg"
   swaylock -f -i "$BACKGROUND_IMAGE" && systemctl suspend
-else
-  echo "Seleccione un comando"
-fi
+  ;;
+*)
+  echo "No se seleccionó ningún comando válido"
+  ;;
+esac
