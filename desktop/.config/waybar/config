@@ -33,7 +33,13 @@
       "active": "󱓻"
     },
     "persistent-workspaces": {
-      "eDP-1": [
+      "DP-13": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "DP-12": [
         8
       ]
     }
