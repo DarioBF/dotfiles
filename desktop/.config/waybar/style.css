@@ -5,7 +5,7 @@
   color: @text;
 
   border: none;
-  border-radius: 0;
+  border-radius: 8px;
   min-height: 0;
   font-family: 'JetBrainsMono Nerd Font';
   font-size: 12px;

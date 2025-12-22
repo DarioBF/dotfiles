@@ -1,6 +1,7 @@
 {
   "layer": "top",
   "position": "top",
+  "margin": 5,
   "spacing": 0,
   "height": 26,
   "modules-left": [
@@ -33,13 +34,13 @@
       "active": "󱓻"
     },
     "persistent-workspaces": {
-      "DP-13": [
+      "DP-11": [
         1,
         2,
         3,
         4
       ],
-      "DP-12": [
+      "DP-10": [
         8
       ]
     }
