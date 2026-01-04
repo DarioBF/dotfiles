@@ -82,18 +82,16 @@ assign_workspaces() {
     hyprctl dispatch moveworkspacetomonitor 1 $MAIN_DISPLAY
     hyprctl dispatch moveworkspacetomonitor 2 $MAIN_DISPLAY
     hyprctl dispatch moveworkspacetomonitor 3 $MAIN_DISPLAY
-    hyprctl dispatch moveworkspacetomonitor 4 $MAIN_DISPLAY
+    hyprctl dispatch moveworkspacetomonitor 4 $SECONDARY_DISPLAY
     hyprctl dispatch moveworkspacetomonitor 5 $SECONDARY_DISPLAY
-    hyprctl dispatch moveworkspacetomonitor 6 $SECONDARY_DISPLAY
-    hyprctl dispatch moveworkspacetomonitor 7 $SECONDARY_DISPLAY
-    hyprctl dispatch moveworkspacetomonitor 8 $MINI_DISPLAY
+    hyprctl dispatch moveworkspacetomonitor 6 $MINI_DISPLAY
 
+    hyprctl dispatch focusmonitor "$MINI_DISPLAY"
+    hyprctl dispatch workspace 6
+    hyprctl dispatch focusmonitor "$SECONDARY_DISPLAY"
+    hyprctl dispatch workspace 4
     hyprctl dispatch focusmonitor "$MAIN_DISPLAY"
     hyprctl dispatch workspace 1
-    hyprctl dispatch focusmonitor "$MINI_DISPLAY"
-    hyprctl dispatch workspace 8
-    hyprctl dispatch focusmonitor "$SECONDARY_DISPLAY"
-    hyprctl dispatch workspace 5
 
     update_waybar_config close
     log "Workspaces assigned (close mode)."
@@ -106,18 +104,16 @@ assign_workspaces() {
       hyprctl dispatch moveworkspacetomonitor 3 $MAIN_DISPLAY
       hyprctl dispatch moveworkspacetomonitor 4 $MAIN_DISPLAY
       hyprctl dispatch moveworkspacetomonitor 5 $SECONDARY_DISPLAY
-      hyprctl dispatch moveworkspacetomonitor 6 $SECONDARY_DISPLAY
-      hyprctl dispatch moveworkspacetomonitor 7 $SECONDARY_DISPLAY
-      hyprctl dispatch moveworkspacetomonitor 8 $MINI_DISPLAY
+      hyprctl dispatch moveworkspacetomonitor 6 $MINI_DISPLAY
 
-      hyprctl dispatch focusmonitor "$LAPTOP_OUTPUT"
-      hyprctl dispatch workspace 1
+      hyprctl dispatch focusmonitor "$MINI_DISPLAY"
+      hyprctl dispatch workspace 6
+      hyprctl dispatch focusmonitor "$SECONDARY_DISPLAY"
+      hyprctl dispatch workspace 4
       hyprctl dispatch focusmonitor "$MAIN_DISPLAY"
       hyprctl dispatch workspace 2
-      hyprctl dispatch focusmonitor "$MINI_DISPLAY"
-      hyprctl dispatch workspace 8
-      hyprctl dispatch focusmonitor "$SECONDARY_DISPLAY"
-      hyprctl dispatch workspace 5
+      hyprctl dispatch focusmonitor "$LAPTOP_OUTPUT"
+      hyprctl dispatch workspace 1
 
       update_waybar_config open_external
     else
