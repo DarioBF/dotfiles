@@ -18,7 +18,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Faster navigation
 # -----------------
-eval "$(zoxide init --cmd j bash)"
+eval "$(zoxide init --cmd j zsh)"
 alias cd="j"
 alias ji="zoxide query -i"
 alias za="zoxide add"
@@ -82,6 +82,7 @@ alias homebackup='sudo mount -t cifs //192.168.1.135/DarioBF /media/HomeBackup -
 alias mkwp="/home/dariobf/.dariobf/mkwp"
 alias cleardev="ls | xargs rm -rf"
 alias cleandev="ls | xargs rm -rf"
+alias batterycheck="upower -i /org/freedesktop/UPower/devices/battery_BAT1"
 
 mkpot() {
   local domain output_dir output_file
