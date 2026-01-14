@@ -7,8 +7,7 @@
     "hyprland/workspaces"
   ],
   "modules-center": [
-    "clock",
-    "custom/update"
+    "clock"
   ],
   "modules-right": [
     "temperature",
@@ -62,7 +61,7 @@
   "clock": {
     "format": "{:%A %d, %H:%M}",
     "tooltip": false,
-    "on-click": "exec setsid uwsm app -- kitty --class=Omarchy -o font.size=9 -e bash -c 'calcure; read -n 1 -s'"
+    "on-click": "exec setsid uwsm app -- kitty --class=tui-calcure -o font.size=9 -e bash -c 'calcure; read -n 1 -s'"
   },
   "network": {
     "format-icons": [
@@ -81,11 +80,11 @@
     "tooltip-format-disconnected": "Disconnected",
     "interval": 3,
     "nospacing": 1,
-    "on-click": "kitty --class=Impala -e impala"
+    "on-click": "kitty --class=tui-impala -e impala"
   },
   "battery": {
     "format": "{capacity}% {icon}",
-    "format-discharging": "{icon}",
+    "format-discharging": "{capacity}% {icon}",
     "format-charging": "{icon}",
     "format-plugged": "",
     "format-icons": {
@@ -115,8 +114,8 @@
       ]
     },
     "format-full": "Charged ",
-    "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
-    "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}%",
+    "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}% {time}",
+    "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}% {time}",
     "interval": 5,
     "states": {
       "warning": 20,
@@ -128,7 +127,7 @@
     "format-disabled": "󰂲",
     "format-connected": "",
     "tooltip-format": "Devices connected: {num_connections}",
-    "on-click": "exec setsid uwsm app -- kitty --class=Omarchy -o font.size=9 -e bash -c 'bluetuith; read -n 1 -s'"
+    "on-click": "exec setsid uwsm app -- kitty --class=tui-bluetuith -o font.size=9 -e bash -c 'bluetuith; read -n 1 -s'"
   },
   "pulseaudio": {
     "format": "{icon} {volume}%",
@@ -149,12 +148,5 @@
     "ignored-sinks": [
       "Easy Effects Sink"
     ]
-  },
-  "custom/update": {
-    "format": "",
-    "exec": "omarchy-update-available",
-    "on-click": "kitty --class Omarchy --title Omarchy -e omarchy-update",
-    "tooltip-format": "Omarchy update available",
-    "interval": 3600
   }
 }
