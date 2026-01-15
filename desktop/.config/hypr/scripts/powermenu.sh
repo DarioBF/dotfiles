@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-options=" Apagar\n Reiniciar\n Suspender\n Bloquear\n Cerrar sesión"
+options="  Shutdown\n  Reboot\n  Suspend\n  Lock\n  Logout"
 
 chosen=$(echo -e "$options" | rofi -dmenu \
   -i \
@@ -18,7 +18,7 @@ case "$chosen" in
   systemctl suspend
   ;;
 " Lock")
-  loginctl lock-session
+  hyprlock
   ;;
 " Logout")
   hyprctl dispatch exit

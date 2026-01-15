@@ -151,7 +151,7 @@ if [ "$1" = "close" ]; then
   if [ "$only_laptop" -eq 1 ]; then
     log "Only laptop output active, locking and suspending."
     # swaylock -f -i "$BACKGROUND_IMAGE" && systemctl suspend
-    dms ipc call lock lock
+    hyprlock
   fi
 
 elif [ "$1" = "open" ]; then
