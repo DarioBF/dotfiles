@@ -8,19 +8,19 @@ chosen=$(echo -e "$options" | rofi -dmenu \
   -show-icons)
 
 case "$chosen" in
-" Shutdown")
+"  Shutdown")
   systemctl poweroff
   ;;
-" Reboot")
+"  Reboot")
   systemctl reboot
   ;;
-" Suspend")
+"  Suspend")
   systemctl suspend
   ;;
-" Lock")
+"  Lock")
   hyprlock
   ;;
-" Logout")
+"  Logout")
   hyprctl dispatch exit
   ;;
 esac
