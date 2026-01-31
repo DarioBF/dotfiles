@@ -1,0 +1,8 @@
+#
+#No titlebars
+default_border none
+
+# Gaps generales para todos los contenedores
+gaps inner 5
+gaps outer 5
+

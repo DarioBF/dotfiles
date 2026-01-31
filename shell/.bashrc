@@ -1,7 +1,10 @@
 alias pass="echo dummy"
-source ~/.davilera/shell/.bashrc
+#source ~/.davilera/shell/.bashrc
 unalias pass
 unset aws
+
+export PATH="$HOME/go/bin:$PATH"
+export PATH="$HOME/.npm-global/bin:$PATH"
 
 alias dev='cd ~/DEV'
 alias hosts='sudo nano /etc/hosts'
@@ -49,3 +52,8 @@ mkpot() {
   echo "Generando archivo POT para el dominio '${domain}'..."
   lando wp i18n make-pot . "$output_file" --domain="$domain"
 }
+
+eval "$(starship init bash)"
+
+# Created by `pipx` on 2026-01-31 19:53:51
+export PATH="$PATH:/home/dariobf/.local/bin"
