@@ -6,3 +6,6 @@ default_border none
 gaps inner 5
 gaps outer 5
 
+# Focus follow mouse
+mouse_warping container
+

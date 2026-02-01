@@ -11,15 +11,46 @@ set $wallpaper_color #000000
 # ------------------------------
 
 # Pantalla del portátil
-output eDP-1 resolution 2256x1504 position 0,0 scale 1.66
+output eDP-1 resolution 2256x1504 position 0,1440 scale 1.658333
 
-# Monitor principal
-output DP-6 resolution 3840x2160 position 2256,0 scale 1.0
+# Dell U2715H (principal)
+output "Dell Inc. DELL U2715H GH85D7CN014S" resolution 2560x1440 position 2560,0 scale 1
 
-# Monitor secundario
-output DP-4 resolution 1920x1080 position 0,1504 scale 1.0
+# Dell U2715H (secundario)
+output "Dell Inc. DELL U2715H GH85D74E1U4S" resolution 2560x1440 position 0,0 scale 1
 
-# Monitor pequeño adicional
-output DP-5 resolution 1920x1080 position 3840,0 scale 1.0
+# Monitor HDMI raro (Realtek)
+output "Synaptics Inc Non-PnP 0x00BC614E" resolution 960x640 position 3840,1440 scale 1
 
 output * background $wallpaper fill
+
+# Definir workspaces
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+
+# Asignar todos los workspaces al monitor del portátil
+workspace $ws1 output eDP-1
+workspace $ws2 output eDP-1
+workspace $ws3 output eDP-1
+workspace $ws4 output eDP-1
+workspace $ws5 output eDP-1
+workspace $ws6 output eDP-1
+
+# Crear workspaces “fantasma” al inicio
+# Esto hace que Sway los considere existentes sin abrir ninguna ventana
+exec_always swaymsg "workspace $ws1"
+exec_always swaymsg "workspace $ws2"
+exec_always swaymsg "workspace $ws3"
+exec_always swaymsg "workspace $ws4"
+exec_always swaymsg "workspace $ws5"
+exec_always swaymsg "workspace $ws6"
+
+# Opcional: volver al workspace 1 al final del inicio
+exec_always swaymsg "workspace $ws1"
+
+bindswitch --reload --locked lid:on exec ~/.config/sway/scripts/clamshell.sh close
+bindswitch --reload --locked lid:off exec ~/.config/sway/scripts/clamshell.sh open
