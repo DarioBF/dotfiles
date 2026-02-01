@@ -37,33 +37,59 @@ fi
 # WAYBAR
 # ------------------------------
 
+# Devuelve el ID de un monitor dado su nombre/description
+# $1 = nombre de la pantalla (por ejemplo "Dell Inc. DELL U2715H GH85D7CN014S")
+# $1 = descripción del monitor, puede ser:
+#   - nombre de Sway ("DP-11")
+#   - combinación make+model+serial ("Dell Inc. DELL U2715H GH85D7CN014S")
+get_output_id() {
+  local name="$1"
+  swaymsg -t get_outputs -r | jq -r --arg name "$name" '
+    .[] | select(
+        .name == $name or
+        (.make + " " + .model + " " + .serial) == $name
+    ) | .name
+  ' | head -n1
+}
+
 update_waybar_config() {
   local json
 
+  # Convertir nombres a IDs de Sway
+  local MAIN_ID=$(get_output_id "$MAIN_DISPLAY")
+  local SECONDARY_ID=$(get_output_id "$SECONDARY_DISPLAY")
+  local MINI_ID=$(get_output_id "$MINI_DISPLAY")
+  local LAPTOP_ID=$(get_output_id "$LAPTOP_OUTPUT")
+
   case "$1" in
   close)
-    json=$(jq -n --arg main "$MAIN_DISPLAY" --arg sec "$SECONDARY_DISPLAY" --arg mini "$MINI_DISPLAY" '{
-        "1": $main,
-        "2": $main,
-        "3": $main,
-        "4": $sec,
-        "5": $sec,
-        "6": $mini,
+    json=$(jq -n --arg main "$MAIN_ID" --arg sec "$SECONDARY_ID" --arg mini "$MINI_ID" '{
+        "1": [$main],
+        "2": [$main],
+        "3": [$main],
+        "4": [$sec],
+        "5": [$sec],
+        "6": [$mini]
       }')
     ;;
   open_only_laptop)
-    json=$(jq -n --arg lap "$LAPTOP_OUTPUT" '{
-        ($lap): [1,2,3,4,5,6,7,8]
+    json=$(jq -n --arg lap "$LAPTOP_ID" '{
+        "1": [$lap],
+        "2": [$lap],
+        "3": [$lap],
+        "4": [$lap],
+        "5": [$lap],
+        "6": [$lap]
       }')
     ;;
   open_external)
-    json=$(jq -n --arg lap "$LAPTOP_OUTPUT" --arg main "$MAIN_DISPLAY" --arg sec "$SECONDARY_DISPLAY" --arg mini "$MINI_DISPLAY" '{
-        "1": $lap,
-        "2": $main,
-        "3": $main,
-        "4": $sec,
-        "5": $sec,
-        "6": $mini,
+    json=$(jq -n --arg lap "$LAPTOP_ID" --arg main "$MAIN_ID" --arg sec "$SECONDARY_ID" --arg mini "$MINI_ID" '{
+        "1": [$lap],
+        "2": [$main],
+        "3": [$main],
+        "4": [$sec],
+        "5": [$sec],
+        "6": [$mini]
       }')
     ;;
   esac

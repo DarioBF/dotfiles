@@ -15,19 +15,19 @@
     // "max-length":
     // "align":
     // "justify":
-    "on-click": "exec setsid uwsm app -- kitty --class=tui-fastfetch -o font.size=9 -e bash -c 'fastfetch; read -n 1 -s'",
+    "on-click": "exec setsid kitty --class=tui-fastfetch -o font.size=9 -e bash -c 'fastfetch; read -n 1 -s'",
     // "on-click-middle":
     // "on-click-right":
     // "on-update":
     // "on-scroll-up":
     // "on-scroll-down":
     // "smooth-scrolling-threshold":
-    "tooltip": false
+    "tooltip": false,
     // "tooltip-format":
     // "escape":
     // "menu":
     // "menu-file":
     // "menu-actions":
     // "expand":
-  }
+  },
 }
