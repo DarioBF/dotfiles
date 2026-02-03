@@ -18,16 +18,26 @@
 	background-color: @volume;
 }
 
-/*----------------
-    brightness
-----------------*/
+/*-----------------
+    system tray
+-----------------*/
 
 #custom-left_div.7 {
 	background-color: @volume;
 	color: @backlight;
 }
-#backlight {
+
+#network {
 	background-color: @backlight;
+	padding: 0 6px 0 4px;
+}
+#bluetooth {
+	background-color: @backlight;
+	padding: 0 5px;
+}
+#custom-system_update {
+	background-color: @backlight;
+	padding: 0 8px 0 2px;
 }
 
 /*-------------
