@@ -24,7 +24,8 @@ MAIN_DISPLAY=$(hyprctl monitors -j | jq -r '.[] | select(.description | test("DE
 SECONDARY_DISPLAY=$(hyprctl monitors -j | jq -r '.[] | select(.description | test("DELL U2715H GH85D74E1U4S")) | .name')
 MINI_DISPLAY=$(hyprctl monitors -j | jq -r '.[] | select(.description | test("TYPE-C L56051794302")) | .name')
 BACKGROUND_IMAGE="$HOME/.dariobf/wallpapers/FrameworkMoon.jpg"
-WAYBAR_CONFIG="$HOME/.config/waybar/config"
+#WAYBAR_CONFIG="$HOME/.config/waybar/config"
+WAYBAR_CONFIG="$HOME/.config/waybar/modules/hyprland/workspaces.jsonc"
 
 MAIN_DISPLAY=${MAIN_DISPLAY:-$LAPTOP_OUTPUT}
 SECONDARY_DISPLAY=${SECONDARY_DISPLAY:-$LAPTOP_OUTPUT}
