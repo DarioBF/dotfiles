@@ -1,0 +1,6 @@
+# Extra autostart processes
+exec autotiling-rs
+exec waybar
+exec swaybg -i ~/.dariobf/wallpapers/Inner_You3.jpg -m fill
+#exec-once = swayosd-server
+exec firefox

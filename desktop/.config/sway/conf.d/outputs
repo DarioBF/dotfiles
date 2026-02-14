@@ -1,0 +1,59 @@
+########################################
+# MONITORS + SCALING
+########################################
+
+# GTK scaling
+exec_always export GDK_SCALE=1
+
+# Monitores
+
+output eDP-1 resolution 2256x1504@60Hz position 0 1440 scale 1.6
+
+output "Dell Inc. DELL U2715H GH85D74E1U4S" \
+    resolution 2560x1440@60Hz position 0 0 scale 1
+
+output "Dell Inc. DELL U2715H GH85D7CN014S" \
+    resolution 2560x1440@60Hz position 2560 0 scale 1
+
+output "DRS Defense Solutions LLC TYPE-C L56051794302" \
+    resolution 960x640@60Hz position 3840 1440 scale 1
+
+output "Invalid Vendor Codename - RTK HDMI 0x01010101" \
+    resolution 960x640@60Hz position 3840 1440 scale 1
+
+
+########################################
+# CLAMSHELL MODE
+########################################
+
+bindswitch --reload --locked lid:on  exec ~/.config/sway/scripts/clamshell.sh close
+bindswitch --reload --locked lid:off exec ~/.config/sway/scripts/clamshell.sh open
+
+
+########################################
+# WORKSPACES
+########################################
+
+set $ws1 "1:"
+set $ws2 "2:"
+set $ws3 "3:󰏘"
+set $ws4 "4:󰭹"
+set $ws5 "5:󰭹"
+set $ws6 "6:󱣛"
+
+workspace $ws1 output eDP-1
+workspace $ws2 output eDP-1
+workspace $ws3 output eDP-1
+workspace $ws4 output eDP-1
+workspace $ws5 output eDP-1
+workspace $ws6 output eDP-1
+
+# Simular workspaces persistentes
+exec_always swaymsg workspace $ws1
+exec_always swaymsg workspace $ws2
+exec_always swaymsg workspace $ws3
+exec_always swaymsg workspace $ws4
+exec_always swaymsg workspace $ws5
+exec_always swaymsg workspace $ws6
+exec_always swaymsg workspace $ws1
+

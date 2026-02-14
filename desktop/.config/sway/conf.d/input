@@ -1,0 +1,26 @@
+#####################
+# INPUT CONFIG
+#####################
+
+# Teclado (aplica a todos los teclados)
+input type:keyboard {
+    xkb_layout us
+    xkb_variant altgr-intl
+    xkb_options compose:caps
+
+    repeat_rate 40
+    repeat_delay 600
+}
+
+# Ratón (si quieres ajustar sensibilidad global)
+# input type:pointer {
+#     pointer_accel 0.35
+# }
+
+# Touchpad
+input type:touchpad {
+    # natural_scroll enabled   # descomenta si quieres scroll natural
+    # click_method clickfinger # equivalente a clickfinger_behavior
+    tap enabled
+    scroll_factor 0.4
+}

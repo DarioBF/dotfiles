@@ -15,9 +15,9 @@
     // "justify":
     "min-length": 2,
     "max-length": 2,
-    "on-click": "exec setsid uwsm app -- kitty --class=tui-wiremix -o font.size=9 -e ~/.config/waybar/scripts/system-update.sh",
+    "on-click": "exec setsid kitty --class=tui-wiremix -o font.size=9 -e ~/.config/waybar/scripts/system-update.sh",
     // "on-click-middle":
-    "on-click-right": "pkill -RTMIN+1 waybar"
+    "on-click-right": "pkill -RTMIN+1 waybar",
     // "on-update":
     // "on-scroll-up":
     // "on-scroll-down":
@@ -29,5 +29,5 @@
     // "menu-file":
     // "menu-actions":
     // "expand":
-  }
+  },
 }

@@ -1,0 +1,48 @@
+### Variables de colores
+set $activeBorderColor #FAB387
+set $inactiveBorderColor #595959AA
+
+### Apariencia general
+gaps inner 10
+gaps outer 5
+
+default_border pixel 2
+default_floating_border pixel 2
+
+# Colores: border background text indicator child_border
+client.focused          $activeBorderColor   $activeBorderColor   #ffffff   $activeBorderColor   $activeBorderColor
+client.unfocused        $inactiveBorderColor $inactiveBorderColor #ffffff90 $inactiveBorderColor $inactiveBorderColor
+client.focused_inactive $inactiveBorderColor $inactiveBorderColor #ffffff90 $inactiveBorderColor $inactiveBorderColor
+client.urgent           #ff0000              #ff0000              #ffffff   #ff0000              #ff0000
+
+### Layout (equivalente aproximado a dwindle)
+# Sway no tiene dwindle; usa:
+workspace_layout default
+# Alternativas:
+# workspace_layout stacking
+# workspace_layout tabbed
+
+### Bordes redondeados (NO soportado nativamente)
+# Necesitás swayfx si querés:
+# corner_radius 8
+
+### Sombras y blur (NO soportado)
+# Necesitás fork como swayfx o un compositor externo.
+
+### Cursor
+seat seat0 hide_cursor 3000
+
+### Pseudotiling (aproximación)
+for_window [app_id=".*"] border pixel 2
+
+### Focus behavior
+focus_follows_mouse yes
+
+### GTK Tema oscuro
+exec_always gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
+exec_always gsettings set org.gnome.desktop.interface gtk-theme "adw-gtk3"
+
+### Qt
+set $qt_theme qt6ct
+exec_always export QT_QPA_PLATFORMTHEME=qt6ct
+
