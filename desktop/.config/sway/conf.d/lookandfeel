@@ -4,7 +4,7 @@ set $inactiveBorderColor #595959AA
 
 ### Apariencia general
 gaps inner 10
-gaps outer 5
+gaps outer -4
 
 default_border pixel 2
 default_floating_border pixel 2

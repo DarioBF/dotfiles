@@ -6,7 +6,7 @@
 bindsym $mod+w kill
 
 # Powermenu
-bindsym $mod+Escape exec ~/.config/hypr/scripts/powermenu.sh
+bindsym $mod+Escape exec ~/.config/sway/scripts/powermenu.sh
 
 # File manager
 bindsym $mod+e exec $fileManager

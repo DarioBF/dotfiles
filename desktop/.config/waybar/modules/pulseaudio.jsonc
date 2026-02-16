@@ -1,16 +1,13 @@
 {
   "group/pulseaudio": {
     "orientation": "horizontal",
-    "modules": [
-      "pulseaudio#output",
-      "pulseaudio#input"
-    ],
+    "modules": ["pulseaudio#output", "pulseaudio#input"],
     "drawer": {
       // "transition-duration":
-      "transition-left-to-right": false
+      "transition-left-to-right": false,
       // "children-class":
       // "click-to-reveal":
-    }
+    },
   },
   /*-------------------
 	    output device
@@ -22,16 +19,12 @@
     // "format-source":
     // "format-source-muted":
     "format-icons": {
-      "default": [
-        "󰕿",
-        "󰖀",
-        "󰕾"
-      ],
+      "default": ["󰕿", "󰖀", "󰕾"],
       "default-muted": "󰝟",
       "headphone": "󰋋",
       "headphone-muted": "󰟎",
       "headset": "󰋎",
-      "headset-muted": "󰋐"
+      "headset-muted": "󰋐",
     },
     // "rotate":
     // "states":
@@ -40,7 +33,7 @@
     // "align":
     // "justify":
     // "scroll-step":
-    "on-click": "exec setsid uwsm app -- kitty --class=tui-wiremix -o font.size=9 -e bash -c 'wiremix; read -n 1 -s'",
+    "on-click": "exec setsid kitty --class=tui-wiremix -o font.size=9 -e bash -c 'wiremix; read -n 1 -s'",
     // "on-click-middle":
     // "on-click-right":
     // "on-update":
@@ -48,7 +41,7 @@
     "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
     // "smooth-scrolling-threshold":
     // "tooltip":
-    "tooltip-format": "<b>Output Device</b>: {desc}"
+    "tooltip-format": "<b>Output Device</b>: {desc}",
     // "max-volume":
     // "ignored-sinks":
     // "reverse-scrolling":
@@ -83,7 +76,7 @@
     "on-scroll-down": "~/.config/waybar/scripts/volume.sh input lower",
     // "smooth-scrolling-threshold":
     // "tooltip":
-    "tooltip-format": "<b>Input Device</b>: {desc}"
+    "tooltip-format": "<b>Input Device</b>: {desc}",
     // "max-volume":
     // "ignored-sinks":
     // "reverse-scrolling":
@@ -92,5 +85,5 @@
     // "menu-file":
     // "menu-actions":
     // "expand":
-  }
+  },
 }
