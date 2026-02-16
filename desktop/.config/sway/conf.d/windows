@@ -2,8 +2,7 @@
 # FLOATING TUI APPS
 ########################################
 
-for_window [class="^(tui-calcure|tui-bluetuith|tui-impala|tui-fastfetch|tui-wiremix|TUI.float|imv|mpv)$"] \
-    floating enable, move position center, resize set 875 600
+for_window [app_id="^(tui-calcure|tui-bluetuith|tui-impala|tui-fastfetch|tui-wiremix|TUI.float|imv|mpv)$"] floating enable, move position center, resize set 875 600
 
 
 ########################################
@@ -18,7 +17,7 @@ for_window [title="Bitwarden Password Manager"] \
 # FILE PICKERS / SAVE DIALOGS
 ########################################
 
-for_window [class="^(xdg-desktop-portal-gtk|sublime_text|DesktopEditors|org.gnome.Nautilus)$" \
+for_window [app_id="^(xdg-desktop-portal-gtk|sublime_text|DesktopEditors|org.gnome.Nautilus)$" \
             title="^(Open.*Files?|Open [Ff]older.*|Save.*Files?|Save.*As|Save|All Files|.*wants to (open|save).*|[Cc]hoose.*)$"] \
     floating enable, move position center
 
@@ -27,22 +26,19 @@ for_window [class="^(xdg-desktop-portal-gtk|sublime_text|DesktopEditors|org.gnom
 # GNOME CALCULATOR
 ########################################
 
-for_window [class="org.gnome.Calculator"] \
-    floating enable
+for_window [app_id="org.gnome.Calculator"] floating enable
 
 
 ########################################
 # PLEXAMP
 ########################################
 
-for_window [title="Plexamp"] \
-    floating enable, move position center, resize set 330 560
+for_window [title="Plexamp"] floating enable, move position center, resize set 330 560
 
 
 ########################################
 # FIREFOX BITWARDEN EXTENSION
 ########################################
 
-for_window [class="firefox" title="Extension: \(Bitwarden Password Manager\)"] \
-    floating enable, move position center
+for_window [class="firefox" title="Extension: \(Bitwarden Password Manager\)"] floating enable, move position center
 
