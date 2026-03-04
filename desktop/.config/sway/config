@@ -14,6 +14,9 @@ set $menu rofi -show drun -show-icons
 set $fileManager nautilus
 set $browser firefox
 
+exec dbus-update-activation-environment --all
+exec systemctl --user import-environment
+
 include ~/.config/sway/conf.d/*
 
 

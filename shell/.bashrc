@@ -18,6 +18,8 @@ alias mkwp="/home/dariobf/.dariobf/mkwp"
 alias cleardev="ls | xargs rm -rf"
 alias cleandev="ls | xargs rm -rf"
 
+alias batteryhealth="upower -i /org/freedesktop/UPower/devices/battery_BAT1"
+
 mkpot() {
   local domain output_dir output_file
 
