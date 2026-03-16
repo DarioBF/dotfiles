@@ -18,6 +18,8 @@ alias mkwp="/home/dariobf/.dariobf/mkwp"
 alias cleardev="ls | xargs rm -rf"
 alias cleandev="ls | xargs rm -rf"
 
+alias batteryhealth="upower -i /org/freedesktop/UPower/devices/battery_BAT1"
+
 mkpot() {
   local domain output_dir output_file
 
@@ -50,10 +52,4 @@ mkpot() {
   lando wp i18n make-pot . "$output_file" --domain="$domain"
 }
 
-export PATH=~/.npm-global/bin:$PATH
-
 eval "$(starship init bash)"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
