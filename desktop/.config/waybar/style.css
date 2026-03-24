@@ -17,11 +17,15 @@
 }
 
 #waybar {
-	background-color: @outline;
+	/*background-color: @outline;*/
+	background-color: transparent;
+	border-radius: 8px;
 }
 #waybar > box {
-	margin: 4px;
+	margin: 6px 6px 0 6px;
 	background-color: @main-bg;
+	border-radius: 8px;
+	padding: 3px;
 }
 
 button {
