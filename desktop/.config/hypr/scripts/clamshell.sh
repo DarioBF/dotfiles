@@ -146,18 +146,18 @@ log "Only Laptop? $only_laptop"
 
 if [ "$1" = "close" ]; then
   log "Clamshell mode ON: Disabling laptop output."
-  hyprctl keyword monitor "$LAPTOP_OUTPUT,disable"
   assign_workspaces close
 
   if [ "$only_laptop" -eq 1 ]; then
     log "Only laptop output active, locking and suspending."
-    # swaylock -f -i "$BACKGROUND_IMAGE" && systemctl suspend
-    hyprlock
+    systemctl suspend
+  else
+    hyprctl keyword monitor "$LAPTOP_OUTPUT,disable"
   fi
 
 elif [ "$1" = "open" ]; then
   log "Clamshell mode OFF: Enabling laptop output."
-  hyprctl keyword monitor "$LAPTOP_OUTPUT,2256x1504,0x1440,1.566667"
+  hyprctl keyword monitor "$LAPTOP_OUTPUT,2256x1504,0x1440,1.33"
   assign_workspaces open
 
 elif [ "$1" = "reload" ]; then
