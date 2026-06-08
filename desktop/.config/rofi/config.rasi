@@ -185,7 +185,7 @@ element normal.active {
     text-color:                  @foreground;
 }
 element selected.normal {
-    background-color:            @red;
+    background-color:            @peach;
     text-color:                  @background;
 }
 element selected.urgent {
@@ -193,7 +193,7 @@ element selected.urgent {
     text-color:                  @foreground;
 }
 element selected.active {
-    background-color:            @red;
+    background-color:            @peach;
     text-color:                  @foreground;
 }
 element-icon {
