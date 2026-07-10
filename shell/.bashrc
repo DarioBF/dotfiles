@@ -53,3 +53,6 @@ mkpot() {
 }
 
 eval "$(starship init bash)"
+
+export PATH="/home/dariobf/.lando/bin:$PATH"; #landopath
+
