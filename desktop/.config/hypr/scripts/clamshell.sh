@@ -1,14 +1,8 @@
 #!/usr/bin/env bash
 
-# REQUIREMENTS
-# swaylock
-
-# HELPERS
-export WAYLAND_DISPLAY=wayland-1 # Cambia a wayland-0 si es necesario
-export XDG_RUNTIME_DIR="/run/user/$(id -u)"
-
-# Accede directamente a la variable de entorno HYPRLAND_INSTANCE_SIGNATURE
-echo "HYPRLAND_INSTANCE_SIGNATURE: $HYPRLAND_INSTANCE_SIGNATURE"
+# HELPERS & ENVs
+export WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-wayland-0}"
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 
 if [[ -z "$HYPRLAND_INSTANCE_SIGNATURE" ]]; then
   echo "Error: No se pudo encontrar HYPRLAND_INSTANCE_SIGNATURE. ¿Está Hyprland corriendo?"
@@ -16,16 +10,13 @@ if [[ -z "$HYPRLAND_INSTANCE_SIGNATURE" ]]; then
 fi
 
 # SETTINGS
-DEBUG="off"
+DEBUG="off" # Cambia a "off" cuando todo funcione correctamente
 DEBUG_COMMANDS=0
 
 LAPTOP_OUTPUT="eDP-1"
 MAIN_DISPLAY=$(hyprctl monitors -j | jq -r '.[] | select(.description | test("DELL U2715H GH85D7CN014S")) | .name')
 SECONDARY_DISPLAY=$(hyprctl monitors -j | jq -r '.[] | select(.description | test("DELL U2715H GH85D74E1U4S")) | .name')
 MINI_DISPLAY=$(hyprctl monitors -j | jq -r '.[] | select(.description | test("TYPE-C L56051794302")) | .name')
-BACKGROUND_IMAGE="$HOME/.dariobf/wallpapers/FrameworkMoon.jpg"
-#WAYBAR_CONFIG="$HOME/.config/waybar/config"
-WAYBAR_CONFIG="$HOME/.config/waybar/modules/hyprland/workspaces.jsonc"
 
 MAIN_DISPLAY=${MAIN_DISPLAY:-$LAPTOP_OUTPUT}
 SECONDARY_DISPLAY=${SECONDARY_DISPLAY:-$LAPTOP_OUTPUT}
@@ -46,96 +37,72 @@ if [ "$num_outputs" -eq 1 ] && echo "$active_outputs" | grep -q "^$LAPTOP_OUTPUT
   only_laptop=1
 fi
 
+# --- HELPERS HYPRLAND (parser Lua, Hyprland 0.56+ con config .lua) ---
+# En modo Lua, `hyprctl dispatch <arg>` se evalua como `return hl.dispatch(<arg>)`,
+# por lo que ya NO valen los comandos de texto ("workspace 1", "moveworkspacetomonitor ...").
+# Hay que pasar dispatchers del namespace hl.dsp.* con tablas Lua, y usar `hyprctl eval`
+# con hl.monitor(...) para (des)activar salidas (el antiguo `keyword monitor` tampoco funciona).
+#
+# ws_assign fija un workspace a un monitor de forma PERSISTENTE mediante una regla.
+# A diferencia de hl.dsp.workspace.move (que solo mueve workspaces YA existentes, falla
+# con los vacíos -> "Workspace not found", y no es permanente), hl.workspace_rule
+# materializa el workspace aunque esté vacío y lo mantiene fijo en ese monitor. Además
+# la regla hace MERGE, así que se conserva el default_name/icono definido en monitors.lua.
+ws_assign() { hyprctl eval "hl.workspace_rule({ workspace = $1, monitor = \"$2\", persistent = true })"; }
+focus_mon() { hyprctl dispatch "hl.dsp.focus({ monitor = \"$1\" })"; }
+focus_ws() { hyprctl dispatch "hl.dsp.focus({ workspace = $1 })"; }
+mon_disable() { hyprctl eval "hl.monitor({ output = \"$1\", disabled = true })"; }
+# hl.monitor hace MERGE del estado, así que tras un mon_disable (disabled=true) hay que
+# poner disabled=false explícitamente; con solo mode/position/scale la salida seguiría apagada.
+mon_enable() { hyprctl eval "hl.monitor({ output = \"$1\", mode = \"$2\", position = \"$3\", scale = $4, disabled = false })"; }
+
 # --- FUNCIONES ---
-
-update_waybar_config() {
-  # $1 = modo: "close", "open_external" o "open_only_laptop"
-  local json
-  if [ "$1" = "close" ]; then
-    json=$(jq -n --arg main "$MAIN_DISPLAY" --arg sec "$SECONDARY_DISPLAY" --arg mini "$MINI_DISPLAY" '{
-            ($main): [1,2,3,4],
-            ($sec): [5,6,7],
-            ($mini): [8]
-        }')
-  elif [ "$1" = "open_only_laptop" ]; then
-    json=$(jq -n --arg lap "$LAPTOP_OUTPUT" '{
-            ($lap): [1,2,3,4,5,6,7,8]
-        }')
-  elif [ "$1" = "open_external" ]; then
-    json=$(jq -n --arg lap "$LAPTOP_OUTPUT" --arg main "$MAIN_DISPLAY" --arg sec "$SECONDARY_DISPLAY" --arg mini "$MINI_DISPLAY" '{
-            ($lap): [1],
-            ($main): [2,3,4],
-            ($sec): [5,6,7],
-            ($mini): [8]
-        }')
-  fi
-
-  tmpfile=$(mktemp)
-  jq ".\"hyprland/workspaces\".\"persistent-workspaces\" = $json" \
-    "$WAYBAR_CONFIG" >"$tmpfile" && mv "$tmpfile" "$WAYBAR_CONFIG"
-
-  pkill waybar && hyprctl dispatch exec waybar
-}
 
 assign_workspaces() {
   if [ "$1" = "close" ]; then
-    # Asignar workspaces al cerrar la tapa
-    hyprctl dispatch moveworkspacetomonitor 1 $MAIN_DISPLAY
-    hyprctl dispatch moveworkspacetomonitor 2 $MAIN_DISPLAY
-    hyprctl dispatch moveworkspacetomonitor 3 $MAIN_DISPLAY
-    hyprctl dispatch moveworkspacetomonitor 4 $SECONDARY_DISPLAY
-    hyprctl dispatch moveworkspacetomonitor 5 $SECONDARY_DISPLAY
-    hyprctl dispatch moveworkspacetomonitor 6 $MINI_DISPLAY
+    ws_assign 1 "$MAIN_DISPLAY"
+    ws_assign 2 "$MAIN_DISPLAY"
+    ws_assign 3 "$MAIN_DISPLAY"
+    ws_assign 4 "$SECONDARY_DISPLAY"
+    ws_assign 5 "$SECONDARY_DISPLAY"
+    ws_assign 6 "$MINI_DISPLAY"
 
-    hyprctl dispatch focusmonitor "$MINI_DISPLAY"
-    hyprctl dispatch workspace 6
-    hyprctl dispatch focusmonitor "$SECONDARY_DISPLAY"
-    hyprctl dispatch workspace 4
-    hyprctl dispatch focusmonitor "$MAIN_DISPLAY"
-    hyprctl dispatch workspace 1
+    focus_mon "$MINI_DISPLAY"
+    focus_ws 6
+    focus_mon "$SECONDARY_DISPLAY"
+    focus_ws 4
+    focus_mon "$MAIN_DISPLAY"
+    focus_ws 1
 
-    update_waybar_config close
     log "Workspaces assigned (close mode)."
 
   elif [ "$1" = "open" ]; then
     if echo "$active_outputs" | grep -vq "$LAPTOP_OUTPUT"; then
-      # Monitores externos activos
-      hyprctl dispatch moveworkspacetomonitor 1 $LAPTOP_OUTPUT
-      hyprctl dispatch moveworkspacetomonitor 2 $MAIN_DISPLAY
-      hyprctl dispatch moveworkspacetomonitor 3 $MAIN_DISPLAY
-      hyprctl dispatch moveworkspacetomonitor 4 $MAIN_DISPLAY
-      hyprctl dispatch moveworkspacetomonitor 5 $SECONDARY_DISPLAY
-      hyprctl dispatch moveworkspacetomonitor 6 $MINI_DISPLAY
+      ws_assign 1 "$LAPTOP_OUTPUT"
+      ws_assign 2 "$MAIN_DISPLAY"
+      ws_assign 3 "$MAIN_DISPLAY"
+      ws_assign 4 "$SECONDARY_DISPLAY"
+      ws_assign 5 "$SECONDARY_DISPLAY"
+      ws_assign 6 "$MINI_DISPLAY"
 
-      hyprctl dispatch focusmonitor "$MINI_DISPLAY"
-      hyprctl dispatch workspace 6
-      hyprctl dispatch focusmonitor "$SECONDARY_DISPLAY"
-      hyprctl dispatch workspace 4
-      hyprctl dispatch focusmonitor "$MAIN_DISPLAY"
-      hyprctl dispatch workspace 2
-      hyprctl dispatch focusmonitor "$LAPTOP_OUTPUT"
-      hyprctl dispatch workspace 1
-
-      update_waybar_config open_external
+      focus_mon "$MINI_DISPLAY"
+      focus_ws 6
+      focus_mon "$SECONDARY_DISPLAY"
+      focus_ws 4
+      focus_mon "$MAIN_DISPLAY"
+      focus_ws 2
+      focus_mon "$LAPTOP_OUTPUT"
+      focus_ws 1
     else
-      # Solo laptop activo
       for ws in {1..8}; do
-        hyprctl dispatch moveworkspacetomonitor "$ws" $LAPTOP_OUTPUT
+        ws_assign "$ws" "$LAPTOP_OUTPUT"
       done
-      hyprctl dispatch workspace "1,monitor:$LAPTOP_OUTPUT"
-
-      update_waybar_config open_only_laptop
+      focus_mon "$LAPTOP_OUTPUT"
+      focus_ws 1
     fi
   fi
 
-  hyprctl dispatch workspace 1
-
-  # Recarga Waybar o lo inicia si no está corriendo
-  # if pgrep -x waybar >/dev/null; then
-  #   pkill -USR1 waybar
-  # else
-  #   nohup waybar >/dev/null 2>&1 &
-  # fi
+  focus_ws 1
 }
 
 # --- EJECUCIÓN ---
@@ -152,12 +119,14 @@ if [ "$1" = "close" ]; then
     log "Only laptop output active, locking and suspending."
     systemctl suspend
   else
-    hyprctl keyword monitor "$LAPTOP_OUTPUT,disable"
+    # En config Lua: se desactiva la salida via hl.monitor(... disabled=true)
+    mon_disable "$LAPTOP_OUTPUT"
   fi
 
 elif [ "$1" = "open" ]; then
   log "Clamshell mode OFF: Enabling laptop output."
-  hyprctl keyword monitor "$LAPTOP_OUTPUT,2256x1504,0x1440,1.33"
+  # En config Lua: se reactiva/configura la salida via hl.monitor(...)
+  mon_enable "$LAPTOP_OUTPUT" "2256x1504@60" "0x1440" "1.33"
   assign_workspaces open
 
 elif [ "$1" = "reload" ]; then

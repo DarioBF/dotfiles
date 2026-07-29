@@ -75,9 +75,8 @@ omarchy-webapp-remove "${APP_NAMES[@]}"
 
 sudo pacman -Rns --no-confirm 1password-beta 1password-cli typora
 
-subtitle "Overriding hyprland and waybar settings"
+subtitle "Overriding hyprland settings"
 rm -rf ~/.config/hypr
-rm -rf ~/.config/waybar
 stow desktop
 
 gum confirm "End install and reboot" && sudo reboot
