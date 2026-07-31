@@ -94,7 +94,7 @@ assign_workspaces() {
       focus_mon "$LAPTOP_OUTPUT"
       focus_ws 1
     else
-      for ws in {1..8}; do
+      for ws in {1..6}; do
         ws_assign "$ws" "$LAPTOP_OUTPUT"
       done
       focus_mon "$LAPTOP_OUTPUT"
