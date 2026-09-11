@@ -1,28 +1,11 @@
----@module 'hl'
-
--- Control your input devices
-
--- See https://wiki.hypr.land/Configuring/Variables/#input
+-- Personal input overrides. Anything not set here keeps Omarchy's default:
+-- see $OMARCHY_PATH/default/hypr/input.lua and
+-- https://wiki.hypr.land/Configuring/Basics/Variables/#input
 
 hl.config({
-	input = {
-		kb_layout = "us",
-		kb_variant = "altgr-intl",
-		kb_options = "compose:caps",
-		repeat_rate = 40,
-		repeat_delay = 600,
-		touchpad = {
-			scroll_factor = 0.4,
-		},
-	},
-})
-
--- Scroll faster in the terminal
-
-hl.window_rule({
-	name = "windowrule-1",
-	match = {
-		tag = "terminal",
-	},
-	scroll_touchpad = 1.5,
+  input = {
+    -- US International with AltGr dead keys, for accents and ñ.
+    kb_variant = "altgr-intl",
+    repeat_delay = 600,
+  },
 })

@@ -1,14 +1,19 @@
----@module 'hl'
+-- Learn how to configure Hyprland: https://wiki.hypr.land/Configuring/Start/
 
--- ######################################################################## #
--- Requires:
--- grim & slurp for screenshots
--- ####################################################################### #
+-- Omarchy's bootstrap keeps path setup out of this user config.
+dofile((os.getenv("OMARCHY_PATH") or "/usr/share/omarchy") .. "/default/hypr/bootstrap.lua")
 
-require("autostart")
-require("envs")
-require("monitors")
-require("looknfeel")
-require("input")
-require("bindings")
-require("windows")
+-- Load Omarchy defaults.
+require("default.hypr.omarchy")
+
+-- Personal overrides, loaded after Omarchy's defaults so package updates can
+-- improve the defaults without rewriting these files.
+require("hypr.monitors")
+require("hypr.input")
+require("hypr.bindings")
+require("hypr.looknfeel")
+require("hypr.windows")
+require("hypr.autostart")
+
+-- Toggle config flags dynamically.
+require("default.hypr.toggles")

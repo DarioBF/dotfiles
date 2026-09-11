@@ -1,115 +1,56 @@
----@module 'hl'
+-- See https://wiki.hypr.land/Configuring/Basics/Monitors/
+-- List current monitors and supported resolutions with: hyprctl monitors all
 
--- See https://wiki.hyprland.org/Configuring/Monitors/
--- List current monitors and resolutions possible: hyprctl monitors
--- Format: monitor = [port], resolution, position, scale
--- You must relaunch Hyprland after changing any envs (use Super+Esc, then Relaunch)
--- Optimized for retina-class 2x displays, like 13" 2.8K, 27" 5K, 32" 6K.
+-- Fallback for any monitor not listed below. Omarchy's SUPER + SLASH scaling
+-- keys persist their change here, so it only affects unlisted monitors.
+local omarchy_gdk_scale = 1
+local omarchy_monitor_scale = 1
 
-hl.env("GDK_SCALE", 1)
+hl.env("GDK_SCALE", tostring(omarchy_gdk_scale))
+hl.monitor({ output = "", mode = "preferred", position = "auto", scale = omarchy_monitor_scale })
 
-hl.monitor({
-	output = "",
-	mode = "preferred",
-	position = "auto",
-	scale = "auto",
-})
+-- Desk layout. Positions are in logical (scaled) pixels.
+--
+--   ┌──────────────┐┌──────────────┐
+--   │  dell_left   ││  dell_right  │
+--   └──────────────┘└──────────────┘
+--   ┌────────┐             ┌──┐
+--   │ laptop │             │  │ mini
+--   └────────┘             └──┘
+--
+-- Externals are matched by description so dock port renumbering doesn't matter.
+local dell_left = "desc:Dell Inc. DELL U2715H GH85D74E1U4S"
+local dell_right = "desc:Dell Inc. DELL U2715H GH85D7CN014S"
+local mini = "desc:DRS Defense Solutions LLC TYPE-C L56051794302"
+local mini_hdmi = "desc:Invalid Vendor Codename- RTK HDMI 0x01010101"
 
--- Good compromise for 27" or 32" 4K monitors (but fractional!)
--- env = GDK_SCALE,1.75
--- monitor=,preferred,auto,1.666667
--- Straight 1x setup for low-resolution displays like 1080p or 1440p
--- env = GDK_SCALE,1
--- monitor=,preferred,auto,1
--- Example for Framework 13 w/ 6K XDR Apple display
--- monitor = DP-5, 6016x3384@60, auto, 2
--- monitor = eDP-1, 2880x1920@120, auto, 2
--- MY CUSTOMS
---monitor=,preferred,auto,auto
+-- Keep the laptop rule on one line with literal values: Omarchy's clamshell
+-- handler reads its position and scale back when the lid reopens.
+-- 2256x1504 / 1.6 = 1410x940 logical.
+hl.monitor({ output = "eDP-1", mode = "preferred", position = "0x1440", scale = 1.6 })
 
-hl.monitor({
-	output = "eDP-1",
-	mode = "2256x1504@60",
-	position = "0x1440",
-	scale = 1.33,
-})
+hl.monitor({ output = dell_left, mode = "2560x1440@59.95", position = "0x0", scale = 1 })
+hl.monitor({ output = dell_right, mode = "2560x1440@59.95", position = "2560x0", scale = 1 })
+hl.monitor({ output = mini, mode = "960x640@60", position = "3840x1440", scale = 1 })
+hl.monitor({ output = mini_hdmi, mode = "960x640@60", position = "3840x1440", scale = 1 })
 
-hl.monitor({
-	output = "desc:Dell Inc. DELL U2715H GH85D74E1U4S",
-	mode = "2560x1440@60",
-	position = "0x0",
-	scale = 1.0,
-})
+-- Workspaces per display follow the lid and dock: scripts/clamshell.sh picks
+-- the layout and writes it as rules to a state file, loaded here so config
+-- reloads keep it. Omarchy's own lid binds turn the laptop panel off and on;
+-- these run alongside them.
+local clamshell = os.getenv("HOME") .. "/.config/hypr/scripts/clamshell.sh"
+local clamshell_workspaces = (os.getenv("XDG_STATE_HOME") or os.getenv("HOME") .. "/.local/state")
+  .. "/hypr/clamshell-workspaces.lua"
 
-hl.monitor({
-	output = "desc:Dell Inc. DELL U2715H GH85D7CN014S",
-	mode = "2560x1440@60",
-	position = "2560x0",
-	scale = 1.0,
-})
+local layout = io.open(clamshell_workspaces, "r")
+if layout then
+  layout:close()
+  dofile(clamshell_workspaces)
+end
 
-hl.monitor({
-	output = "desc:DRS Defense Solutions LLC TYPE-C L56051794302",
-	mode = "960x640@60",
-	position = "3840x1440",
-	scale = 1.0,
-})
+o.bind("switch:on:Lid Switch", nil, clamshell .. " close", { locked = true })
+o.bind("switch:off:Lid Switch", nil, clamshell .. " open", { locked = true })
 
-hl.monitor({
-	output = "desc:Invalid Vendor Codename- RTK HDMI 0x01010101",
-	mode = "960x640@60",
-	position = "3840x1440",
-	scale = 1.0,
-})
-
--- Clamshell mode
-
-local script = os.getenv("HOME") .. "/.config/hypr/scripts/clamshell.sh"
-
--- Pasamos el dispatcher directamente. Al ser asíncrono, Hyprland no se bloqueará.
-hl.bind("switch:off:Lid Switch", hl.dsp.exec_cmd(script .. " open"), { locked = true })
-hl.bind("switch:on:Lid Switch", hl.dsp.exec_cmd(script .. " close"), { locked = true })
-
--- Workspace bindings and rules:
-
-hl.workspace_rule({
-	workspace = 1,
-	default_name = "",
-	monitor = "eDP-1",
-	persistent = true,
-})
-
-hl.workspace_rule({
-	workspace = 2,
-	default_name = "",
-	monitor = "eDP-1",
-	persistent = true,
-})
-
-hl.workspace_rule({
-	workspace = 3,
-	default_name = "󰏘",
-	monitor = "eDP-1",
-	persistent = true,
-})
-
-hl.workspace_rule({
-	workspace = 4,
-	default_name = "󰭹",
-	monitor = "eDP-1",
-	persistent = true,
-})
-
-hl.workspace_rule({
-	workspace = 5,
-	default_name = "󰭹",
-	monitor = "eDP-1",
-	persistent = true,
-})
-
-hl.workspace_rule({
-	workspace = 6,
-	default_name = "󱣛",
-	monitor = "eDP-1",
-	persistent = true,
-})
+hl.on("hyprland.start", function() hl.exec_cmd(clamshell) end)
+hl.on("monitor.added", function() hl.exec_cmd(clamshell) end)
+hl.on("monitor.removed", function() hl.exec_cmd(clamshell) end)
