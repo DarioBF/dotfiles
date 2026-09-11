@@ -1,0 +1,10 @@
+[Unit]
+Description=Watch Omarchy's shell.json to copy it into ~/.dariobf
+
+[Path]
+# Omarchy saves shell.json by replacing the file, which breaks a symlink, so
+# the repo keeps a copy instead and this refreshes it on every change.
+PathChanged=%h/.config/omarchy/shell.json
+
+[Install]
+WantedBy=default.target

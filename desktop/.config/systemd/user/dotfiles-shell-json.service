@@ -1,0 +1,6 @@
+[Unit]
+Description=Copy Omarchy's shell.json into ~/.dariobf
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/cp %h/.config/omarchy/shell.json %h/.dariobf/omarchy/shell.json

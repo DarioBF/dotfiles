@@ -1,0 +1,63 @@
+{
+  "bar": {
+    "centerAnchor": "omarchy.clock",
+    "layout": {
+      "center": [
+        {
+          "id": "omarchy.indicators"
+        },
+        {
+          "format": "HH:mm",
+          "formatAlt": "d MMMM 'W'ww yyyy",
+          "id": "omarchy.clock",
+          "verticalFormat": "HH\n—\nmm"
+        },
+        {
+          "id": "omarchy.keyboard-layout"
+        },
+        {
+          "id": "omarchy.system-update"
+        },
+        {
+          "id": "omarchy.weather"
+        }
+      ],
+      "left": [
+        {
+          "id": "dariobf.workspaces"
+        }
+      ],
+      "right": [
+        {
+          "id": "io.github.tymurbogach.modular-hw-monitor"
+        },
+        {
+          "id": "omarchy.agents"
+        },
+        {
+          "id": "omarchy.bluetooth"
+        },
+        {
+          "id": "omarchy.audio"
+        },
+        {
+          "id": "omarchy.monitor"
+        },
+        {
+          "id": "omarchy.network"
+        },
+        {
+          "id": "omarchy.power"
+        }
+      ]
+    },
+    "position": "top",
+    "transparent": false
+  },
+  "idle": {
+    "lock": 300,
+    "screensaver": 150
+  },
+  "plugins": [],
+  "version": 1
+}
