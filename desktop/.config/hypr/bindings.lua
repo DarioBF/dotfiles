@@ -19,13 +19,14 @@ for workspace, key in ipairs({ "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P" 
   o.bind("SUPER + SHIFT + " .. key, "Move window to workspace " .. workspace, hl.dsp.window.move({ workspace = tostring(workspace) }))
 end
 
--- Window keys. These replace Omarchy's universal cut/paste (SUPER + X/V; use
--- CTRL + X/V in apps instead) and swap fullscreen with the file manager.
-hl.unbind("SUPER + X")
+-- Window keys. These replace Omarchy's universal paste (SUPER + V; use CTRL + V
+-- in apps instead) and swap fullscreen with the file manager. SUPER + X keeps
+-- Omarchy's universal cut; closing moves to SUPER + SHIFT + X (X web app key).
+hl.unbind("SUPER + SHIFT + X")
 hl.unbind("SUPER + V")
 hl.unbind("SUPER + F")
 hl.unbind("SUPER + SHIFT + F")
-o.bind("SUPER + X", "Close window", hl.dsp.window.close())
+o.bind("SUPER + SHIFT + X", "Close window", hl.dsp.window.close())
 o.bind("SUPER + V", "Toggle window floating/tiling", hl.dsp.window.float({ action = "toggle" }))
 o.bind("SUPER + F", "File manager", { omarchy = "nautilus" })
 o.bind("SUPER + SHIFT + F", "Full screen", hl.dsp.window.fullscreen({ mode = "fullscreen" }))

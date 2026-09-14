@@ -3,8 +3,8 @@
 
 -- Fallback for any monitor not listed below. Omarchy's SUPER + SLASH scaling
 -- keys persist their change here, so it only affects unlisted monitors.
-local omarchy_gdk_scale = 1
-local omarchy_monitor_scale = 1
+local omarchy_gdk_scale = 2
+local omarchy_monitor_scale = 1.6
 
 hl.env("GDK_SCALE", tostring(omarchy_gdk_scale))
 hl.monitor({ output = "", mode = "preferred", position = "auto", scale = omarchy_monitor_scale })
