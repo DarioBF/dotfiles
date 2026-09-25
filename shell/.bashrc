@@ -11,7 +11,7 @@ source ~/.davilera/shell/.bashrc
 unalias pass
 unset aws
 
-alias dev='cd ~/DEV'
+alias dev='cd ~/Projects'
 alias hosts='sudo nano /etc/hosts'
 
 alias lerr='lando logs --s appserver -f'
