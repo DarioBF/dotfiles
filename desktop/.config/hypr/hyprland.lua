@@ -17,3 +17,7 @@ require("hypr.autostart")
 
 -- Toggle config flags dynamically.
 require("default.hypr.toggles")
+
+-- gcr-ssh-agent (gnome-keyring): key passphrases are kept in the login keyring,
+-- so apps launched from the session (terminals, Claude Code's ssh-manager MCP) can use them.
+hl.env("SSH_AUTH_SOCK", (os.getenv("XDG_RUNTIME_DIR") or "/run/user/1000") .. "/gcr/ssh")
