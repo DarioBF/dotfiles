@@ -4,10 +4,10 @@
 
 -- Workspaces on the QWERTY row, alongside Omarchy's SUPER + 1…0:
 -- SUPER + Q…O switches to 1–9, SUPER + SHIFT + Q…P moves the window to 1–10.
--- This takes over Omarchy's close (W), float (T) and pop-out (O), and the
+-- This takes over Omarchy's close (Q and W), float (T) and pop-out (O), and the
 -- Omawrite (SHIFT+W), Email (SHIFT+E), YouTube (SHIFT+Y), Obsidian (SHIFT+O)
 -- and Google Photos (SHIFT+P) web-app keys.
-for _, key in ipairs({ "W", "T", "O", "SHIFT + W", "SHIFT + E", "SHIFT + Y", "SHIFT + O", "SHIFT + P" }) do
+for _, key in ipairs({ "Q", "W", "T", "O", "SHIFT + W", "SHIFT + E", "SHIFT + Y", "SHIFT + O", "SHIFT + P" }) do
   hl.unbind("SUPER + " .. key)
 end
 
@@ -38,3 +38,10 @@ o.bind("SUPER + SHIFT + S", "Move window to scratchpad", hl.dsp.window.move({ wo
 
 -- Clipboard history, also on Omarchy's SUPER + CTRL + V.
 o.bind("SUPER + SHIFT + V", "Clipboard manager", "omarchy-shell shell toggle omarchy.clipboard")
+
+-- Dictation keys from before Alt + Space and Right Alt became the defaults.
+-- Remove these lines to give the keys back to applications.
+if o.dictation_installed and o.dictation_installed() then
+  o.bind("SUPER + CTRL + X", "Toggle dictation", "omarchy-dictation toggle")
+  o.bind_hold("F9", "Start dictation (push-to-talk)", "omarchy-dictation start", "Stop dictation (push-to-talk)", "omarchy-dictation stop")
+end
