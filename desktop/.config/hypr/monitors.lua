@@ -38,6 +38,17 @@ hl.monitor({ output = mini_hdmi, mode = "960x640@60", position = "3840x1440", sc
 -- the layout and writes it as rules to a state file, loaded here so config
 -- reloads keep it. Omarchy's own lid binds turn the laptop panel off and on;
 -- these run alongside them.
+--
+-- Omarchy 4.5 added its own per-monitor scheme (default/hypr/monitor-workspaces.lua:
+-- a block of ten ids per monitor, 1-10, 11-20, 21-30...). On every start, config
+-- reload and monitor change it reconciles workspaces into those blocks, which
+-- fights the global numbering below: it renumbered 1-6 to 21+ on the laptop and
+-- moved 1-10 to whichever monitor owns block 0. It can't be switched off, but its
+-- event handlers look up o.workspaces.reconcile at call time, so replacing it
+-- with a no-op leaves workspace placement to clamshell.sh alone, as before 4.5.
+-- The 4.5 workspace keys are restored to their 4.0 form in bindings.lua.
+o.workspaces.reconcile = function() end
+
 local clamshell = os.getenv("HOME") .. "/.config/hypr/scripts/clamshell.sh"
 local clamshell_workspaces = (os.getenv("XDG_STATE_HOME") or os.getenv("HOME") .. "/.local/state")
   .. "/hypr/clamshell-workspaces.lua"
