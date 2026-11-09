@@ -59,6 +59,12 @@ if layout then
   dofile(clamshell_workspaces)
 end
 
+-- Omarchy's own lid handlers (turn eDP-1 off/on), taken from its bindings
+-- because omarchy_default_bindings is off. They live here, registered just
+-- before clamshell.sh's, to keep the order they had when Omarchy loaded them.
+o.bind("switch:on:Lid Switch", nil, "omarchy-system-lid-close", { locked = true })
+o.bind("switch:off:Lid Switch", nil, "omarchy-hyprland-monitor-clamshell", { locked = true })
+
 o.bind("switch:on:Lid Switch", nil, clamshell .. " close", { locked = true })
 o.bind("switch:off:Lid Switch", nil, clamshell .. " open", { locked = true })
 

@@ -3,6 +3,11 @@
 -- Omarchy's bootstrap keeps path setup out of this user config.
 dofile((os.getenv("OMARCHY_PATH") or "/usr/share/omarchy") .. "/default/hypr/bootstrap.lua")
 
+-- Skip Omarchy's keybindings: every key lives in hypr/bindings/*.lua, so the
+-- whole map is readable in one place and an Omarchy update can't add or move a
+-- key under us. The flag must be set before the require below reads it.
+omarchy_default_bindings = false
+
 -- Load Omarchy defaults.
 require("default.hypr.omarchy")
 
